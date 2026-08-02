@@ -280,7 +280,7 @@ PAGES["index.html"] = page(
         <ul class="split-list">
           <li>Head office at Yuzana Tower, Bahan Township, Yangon</li>
           <li>Dedicated electrical, mechanical, civil, design, QS, and renovation sections</li>
-          <li>Proven delivery on power plants, factories, airports, ports, and interiors</li>
+          <li>Proven delivery on power plants, factories, ports, and interiors</li>
         </ul>
         <a class="btn btn-outline" href="about.html">About the company</a>
       </div>
@@ -294,7 +294,7 @@ PAGES["index.html"] = page(
       <div class="section-head reveal">
         <span class="eyebrow">Track record</span>
         <h2>Projects that demonstrate multi-discipline capability</h2>
-        <p>Selected works from PEMCO’s company profile — industrial, power, aviation, commercial, and social infrastructure.</p>
+        <p>Selected works from PEMCO’s company profile — industrial, power, commercial, and social infrastructure.</p>
       </div>
       <div class="project-grid">
         <figure class="project-tile reveal">
@@ -306,20 +306,20 @@ PAGES["index.html"] = page(
           <figcaption><h3>Thilawa Port Extension</h3><p>Mechanical &amp; electrical installation</p></figcaption>
         </figure>
         <figure class="project-tile reveal">
-          <img src="assets/images/project-06.jpg" alt="Nay Pyi Taw International Airport works">
-          <figcaption><h3>Nay Pyi Taw International Airport</h3><p>Electrical, fire alarm &amp; generator works</p></figcaption>
-        </figure>
-        <figure class="project-tile reveal">
           <img src="assets/images/project-04.jpg" alt="Industrial building project">
           <figcaption><h3>Factory &amp; Warehouse Builds</h3><p>Youngin, Acecook, Daizen &amp; more</p></figcaption>
         </figure>
         <figure class="project-tile reveal">
-          <img src="assets/images/project-05.jpg" alt="Interior fit-out project">
+          <img src="assets/images/project-05.jpg" alt="Commercial interiors project">
           <figcaption><h3>Commercial Interiors</h3><p>Hotels, offices, call centers</p></figcaption>
         </figure>
         <figure class="project-tile reveal">
           <img src="assets/images/project-08.jpg" alt="Water treatment facility">
           <figcaption><h3>Water &amp; Wastewater Plants</h3><p>Thilawa SEZ treatment facilities</p></figcaption>
+        </figure>
+        <figure class="project-tile reveal">
+          <img src="assets/images/project-09.jpg" alt="School construction project">
+          <figcaption><h3>School &amp; Community Builds</h3><p>Education and social infrastructure</p></figcaption>
         </figure>
       </div>
       <div style="margin-top:1.6rem" class="reveal">
@@ -437,8 +437,10 @@ PAGES["about.html"] = page(
 """,
 )
 
-def gallery_html(folder, count=6, captions=None):
+def gallery_html(folder, count=5, captions=None, layout="gallery-stack"):
     from pathlib import Path
+    if captions is not None:
+        count = min(count, len(captions))
     files = sorted(Path(f"assets/images/{folder}").glob("*.jpg"))[:count]
     if not files:
         return ""
@@ -448,12 +450,16 @@ def gallery_html(folder, count=6, captions=None):
         figs.append(
             f'<figure class="reveal"><img src="assets/images/{folder}/{f.name}" alt="{caption}" loading="lazy"><figcaption>{caption}</figcaption></figure>'
         )
+    grid_class = "gallery-grid"
+    if layout:
+        grid_class += f" {layout}"
     return f"""
   <section class="section section-tone">
     <div class="container">
       <div class="photo-gallery">
         <h2>Project photos</h2>
-        <div class="gallery-grid">
+        <p class="gallery-lead">Selected delivery photos from PEMCO project work.</p>
+        <div class="{grid_class}">
           {''.join(figs)}
         </div>
       </div>
@@ -462,12 +468,14 @@ def gallery_html(folder, count=6, captions=None):
 """
 
 
-def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_title, side_points, gallery_folder, gallery_captions=None, extra=""):
+def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_title, side_points, gallery_folder, gallery_captions=None, extra="", gallery_layout="gallery-stack"):
     lis = "\n".join(
         f'<li id="{anchor}"><b>{code}</b><span><strong>{name}</strong><br>{blurb}</span></li>'
         for code, anchor, name, blurb in items
     )
     side = "\n".join(f"<li>{p}</li>" for p in side_points)
+    # Keep showcase balanced: 1 featured + even pairs
+    captions = list(gallery_captions or [])[:5]
     return page(
         title,
         desc,
@@ -497,7 +505,7 @@ def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_tit
       </aside>
     </div>
   </section>
-  {gallery_html(gallery_folder, count=6, captions=gallery_captions)}
+  {gallery_html(gallery_folder, count=5, captions=captions, layout=gallery_layout)}
 </main>
 """,
     )
@@ -587,7 +595,6 @@ PAGES["civil.html"] = service_page(
         "Factory & building construction",
         "Industrial facility delivery",
         "Commercial building works",
-        "Aviation & infrastructure civil",
         "Community and school builds",
         "Warehouse and SEZ projects",
     ],
@@ -704,7 +711,6 @@ PAGES["renovation.html"] = service_page(
         ("01", "building", "Building Renovation & Maintenance", "Structural and architectural upgrades for existing buildings."),
         ("02", "interior", "Interior Fit-out & Decoration", "Office, hotel, and commercial interior renovation."),
         ("03", "me", "M&E Upgrade Works", "Electrical, air-conditioning, plumbing, and ELV upgrades."),
-        ("04", "phased", "Phased / Occupied Site Delivery", "Sequenced renovation suitable for operating facilities."),
     ],
     "Recent renovation contexts",
     ["Office renovations", "Hotel interiors", "Call centers and retail counters", "Factory and warehouse upgrades"],
@@ -715,7 +721,6 @@ PAGES["renovation.html"] = service_page(
         "Call center / commercial fit-out",
         "Interior decoration packages",
         "Building upgrade delivery",
-        "Occupied-site renovation",
     ],
 )
 
@@ -804,7 +809,7 @@ PAGES["services.html"] = page(
 
 PAGES["projects.html"] = page(
     "Projects | PEMCO Engineering",
-    "Selected PEMCO projects across power, industrial, aviation, ports, commercial interiors, and social infrastructure.",
+    "Selected PEMCO projects across power, industrial, ports, commercial interiors, and social infrastructure.",
     "projects",
     """
 <main id="main">
@@ -823,7 +828,6 @@ PAGES["projects.html"] = page(
       <div class="project-grid">
         <figure class="project-tile reveal"><img src="assets/images/project-02.jpg" alt="Thilawa substation"><figcaption><h3>230kV Thilawa Substation</h3><p>Civil, electrical &amp; mechanical</p></figcaption></figure>
         <figure class="project-tile reveal"><img src="assets/images/project-03.jpg" alt="Thilawa port"><figcaption><h3>Thilawa Port Extension</h3><p>Mechanical &amp; electrical works</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-06.jpg" alt="Airport project"><figcaption><h3>Nay Pyi Taw International Airport</h3><p>Electrical, fire alarm, generators</p></figcaption></figure>
         <figure class="project-tile reveal"><img src="assets/images/project-01.jpg" alt="Industrial project"><figcaption><h3>Myanmar Kaido / Industrial Builds</h3><p>Factory and facility construction</p></figcaption></figure>
         <figure class="project-tile reveal"><img src="assets/images/project-04.jpg" alt="Youngin project"><figcaption><h3>Myanmar Youngin Projects</h3><p>Office and factory construction</p></figcaption></figure>
         <figure class="project-tile reveal"><img src="assets/images/project-05.jpg" alt="Interior project"><figcaption><h3>Hintha / Hotel / Office Interiors</h3><p>Interior, electrical, air-con packages</p></figcaption></figure>

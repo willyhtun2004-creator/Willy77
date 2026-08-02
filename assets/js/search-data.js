@@ -62,8 +62,8 @@ window.PEMCO_SEARCH = [
   {
     title: "Projects",
     url: "projects.html",
-    keywords: "projects portfolio thilawa airport power plant komatsu yadana mpt sakura sunflower factory",
-    excerpt: "Selected PEMCO projects across power, industrial, commercial, aviation, and infrastructure."
+    keywords: "projects portfolio thilawa power plant komatsu yadana mpt sakura sunflower factory",
+    excerpt: "Selected PEMCO projects across power, industrial, commercial, and infrastructure."
   },
   {
     title: "Clients & Partners",
