@@ -3,1582 +3,307 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PEMCO Engineering</title>
-
+<title>PEMCO Engineering | Engineering Services & General Contractor</title>
+<meta name="description" content="PEMCO Company Limited — electrical, mechanical, civil engineering, design & drawing, and construction services in Myanmar since 1996.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-body{
-    background:#fff;
-    color:#333;
-    overflow-x:hidden;
-    scroll-behavior:smooth;
-}
-
-.container{
-    width:90%;
-    max-width:1300px;
-    margin:auto;
-}
-
-/* ================= HEADER ================= */
-
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background:#fff;
-    box-shadow:0 2px 15px rgba(0,0,0,.08);
-    z-index:1000;
-}
-
-nav{
-    height:118px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    text-decoration:none;
-}
-
-.logo svg{
-    flex-shrink:0;
-}
-
-.logo-text .name{
-    font-size:48px;
-    font-weight:800;
-    color:#d71920;
-    letter-spacing:1px;
-    line-height:1;
-}
-
-.logo-text .tagline{
-    font-size:13px;
-    color:#1a3a6b;
-    font-weight:600;
-    letter-spacing:.3px;
-}
-
-.nav-links{
-    display:flex;
-    list-style:none;
-    align-items:center;
-}
-
-.nav-links > li{
-    margin-left:38px;
-    position:relative;
-}
-
-.nav-links > li > a,
-.nav-toggle{
-    text-decoration:none;
-    font-weight:500;
-    font-size:18px;
-    color:#222;
-    transition:.3s;
-    background:none;
-    border:none;
-    cursor:pointer;
-    font-family:inherit;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    padding:0;
-}
-
-.nav-links > li > a:hover,
-.nav-toggle:hover{
-    color:#d71920;
-}
-
-.nav-links li.active > a{
-    color:#d71920;
-    position:relative;
-}
-
-.nav-links li.active > a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-42px;
-    width:100%;
-    height:3px;
-    background:#d71920;
-}
-
-.chevron{
-    width:10px;
-    height:10px;
-    border-right:2px solid currentColor;
-    border-bottom:2px solid currentColor;
-    transform:rotate(45deg);
-    transition:transform .25s;
-    margin-top:-3px;
-}
-
-.nav-toggle[aria-expanded="true"] .chevron{
-    transform:rotate(-135deg);
-    margin-top:3px;
-}
-
-/* ---- About dropdown ---- */
-
-.dropdown{
-    position:absolute;
-    top:calc(100% + 26px);
-    left:0;
-    background:#fff;
-    box-shadow:0 20px 45px rgba(0,0,0,.15);
-    border-radius:6px;
-    padding:22px 26px;
-    min-width:220px;
-
-    opacity:0;
-    visibility:hidden;
-    transform:translateY(-12px);
-    transition:opacity .25s ease, transform .25s ease, visibility .25s;
-}
-
-.dropdown.open{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-}
-
-.dropdown a{
-    display:block;
-    text-decoration:none;
-    color:#333;
-    font-size:15px;
-    padding:8px 0;
-    white-space:nowrap;
-}
-
-.dropdown a:hover{
-    color:#d71920;
-}
-
-/* ---- Services mega dropdown ---- */
-
-.mega{
-    position:absolute;
-    top:calc(100% + 26px);
-    right:-180px;
-    background:#fff;
-    box-shadow:0 20px 45px rgba(0,0,0,.15);
-    border-radius:6px;
-    padding:26px 36px;
-    display:flex;
-    gap:54px;
-
-    opacity:0;
-    visibility:hidden;
-    transform:translateY(-12px);
-    transition:opacity .25s ease, transform .25s ease, visibility .25s;
-}
-
-.mega.open{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-}
-
-.mega-col{
-    min-width:220px;
-}
-
-.mega-col + .mega-col{
-    border-left:1px solid #e5e5e5;
-    padding-left:36px;
-}
-
-.mega-col h4{
-    color:#d71920;
-    font-size:15px;
-    font-weight:600;
-    margin-bottom:14px;
-    white-space:nowrap;
-}
-
-.mega-col a{
-    display:block;
-    text-decoration:none;
-    color:#333;
-    font-size:15px;
-    padding:6px 0;
-    white-space:nowrap;
-}
-
-.mega-col a:hover{
-    color:#d71920;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    margin-top:118px;
-    height:calc(100vh - 118px);
-    min-height:760px;
-    position:relative;
-    overflow:hidden;
-}
-
-.hero-image{
-    position:absolute;
-    inset:0;
-    background:url('hero-bg.jpg') center center/cover no-repeat;
-    z-index:1;
-}
-
-.hero-shape{
-    position:absolute;
-    left:-2px;
-    top:0;
-    width:49%;
-    height:100%;
-    background:#fff;
-    border:4px solid #d71920;
-    border-left:none;
-    border-top-right-radius:62% 50%;
-    border-bottom-right-radius:62% 50%;
-    display:flex;
-    align-items:center;
-    z-index:2;
-}
-
-.hero-content{
-    max-width:610px;
-    padding-left:52px;
-    padding-right:52px;
-}
-
-.hero-content h1{
-    font-size:52px;
-    font-weight:700;
-    line-height:1.18;
-    color:#1c1c1c;
-    margin-bottom:20px;
-}
-
-.red-line{
-    width:76px;
-    height:5px;
-    background:#d71920;
-    margin-bottom:24px;
-}
-
-.hero-content p{
-    font-size:19px;
-    line-height:1.65;
-    color:#555;
-    margin-bottom:22px;
-}
-
-.hero-content ul{
-    list-style:none;
-    margin-bottom:30px;
-}
-
-.hero-content li{
-    font-size:17px;
-    line-height:1.6;
-    margin-bottom:14px;
-    padding-left:24px;
-    position:relative;
-    color:#333;
-}
-
-.hero-content li::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:12px;
-    width:10px;
-    height:3px;
-    background:#d71920;
-}
-
-.btn{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:18px 34px;
-    background:#d71920;
-    color:#fff;
-    text-decoration:none;
-    font-weight:600;
-    font-size:17px;
-    border-radius:999px;
-    transition:.3s;
-    box-shadow:0 10px 24px rgba(215,25,32,.25);
-}
-
-.btn:hover{
-    background:#b51318;
-}
-
-/* ================= SERVICES ================= */
-
-section{
-    padding:90px 0;
-}
-
-/* thin divider between each slide/section */
-section + section,
-section + footer{
-    border-top:1px solid rgba(0,0,0,.07);
-}
-
-.together{
-    border-top-color:rgba(255,255,255,.1);
-}
-
-footer{
-    border-top-color:rgba(255,255,255,.1);
-}
-
-.services{
-    background:#efefef;
-}
-
-.section-title{
-    font-size:42px;
-    font-weight:700;
-    text-align:center;
-    margin-bottom:60px;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
-}
-
-.card{
-    padding:35px;
-    border-radius:10px;
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
-    transition:.3s;
-    background:white;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-}
-
-.card h3{
-    color:#d71920;
-    margin-bottom:15px;
-    font-size:24px;
-}
-
-.card p{
-    line-height:1.8;
-    color:#666;
-}
-
-/* ---- Services scroll grid ---- */
-
-.services-scroll{
-    overflow-x:auto;
-    padding-bottom:22px;
-    -webkit-overflow-scrolling:touch;
-}
-
-.services-scroll::-webkit-scrollbar{
-    height:8px;
-}
-
-.services-scroll::-webkit-scrollbar-track{
-    background:#eee;
-    border-radius:10px;
-}
-
-.services-scroll::-webkit-scrollbar-thumb{
-    background:#d71920;
-    border-radius:10px;
-}
-
-.services-grid{
-    display:grid;
-    grid-template-rows:repeat(2,1fr);
-    grid-auto-flow:column;
-    grid-auto-columns:280px;
-    gap:26px;
-}
-
-.service-box{
-    padding:30px 26px;
-    border-radius:10px;
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
-    background:white;
-    transition:.3s;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    text-decoration:none;
-    color:inherit;
-}
-
-.service-box:hover{
-    transform:translateY(-6px);
-}
-
-.service-box .tag{
-    display:inline-block;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:.6px;
-    text-transform:uppercase;
-    margin-bottom:12px;
-}
-
-.service-box.mep .tag{
-    color:#d71920;
-}
-
-.service-box.civil .tag{
-    color:#1a3a6b;
-}
-
-.service-box h3{
-    font-size:19px;
-    font-weight:600;
-    line-height:1.3;
-    color:#222;
-}
-
-/* ================= WHAT WE BUILD ================= */
-
-.what-we-build{
-    background:#f7f7f7;
-}
-
-.what-we-build .section-label{
-    color:#d71920;
-}
-
-.what-we-build .section-heading{
-    color:#1c1c1c;
-}
-
-.build-text{
-    font-size:17px;
-    line-height:1.85;
-    color:#555;
-    max-width:760px;
-    margin:0 auto 50px;
-}
-
-.view-all-wrap{
-    text-align:center;
-}
-
-.projects-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:26px;
-    margin-bottom:46px;
-}
-
-.project-card{
-    position:relative;
-    border-radius:10px;
-    overflow:hidden;
-    aspect-ratio:4/3;
-    background:#e5e5e5 center/cover no-repeat;
-    box-shadow:0 10px 24px rgba(0,0,0,.08);
-    transition:.3s;
-}
-
-.project-card:hover{
-    transform:translateY(-6px);
-}
-
-.project-card .project-name{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    padding:14px 16px;
-    background:rgba(20,20,20,.72);
-    color:#fff;
-    font-size:14px;
-    font-weight:600;
-    line-height:1.3;
-    text-align:left;
-}
-
-.view-all-link{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    color:#d71920;
-    font-weight:600;
-    font-size:17px;
-    text-decoration:none;
-    border-bottom:2px solid #d71920;
-    padding-bottom:4px;
-    transition:.3s;
-}
-
-.view-all-link:hover{
-    color:#b51318;
-    border-color:#b51318;
-}
-
-/* ================= STATS ================= */
-
-.who-we-are{
-    padding-bottom:0;
-    background:#fff;
-    color:#333;
-}
-
-.who-we-are .section-label{
-    color:#d71920;
-}
-
-.who-we-are .section-heading{
-    color:#1c1c1c;
-}
-
-.section-label{
-    display:inline-block;
-    color:#fff;
-    font-weight:700;
-    font-size:14px;
-    letter-spacing:2.5px;
-    text-transform:uppercase;
-    margin-bottom:14px;
-    opacity:.9;
-}
-
-.section-heading{
-    font-size:38px;
-    font-weight:700;
-    color:#fff;
-    max-width:760px;
-    line-height:1.3;
-    margin:0 auto 24px;
-}
-
-.who-text{
-    font-size:17px;
-    line-height:1.85;
-    color:#555;
-    max-width:820px;
-    margin:0 auto 60px;
-}
-
-.section-intro{
-    max-width:760px;
-    margin:0 auto;
-}
-
-.section-intro .section-label,
-.section-intro .section-heading,
-.section-intro .who-text,
-.section-intro .build-text{
-    max-width:none;
-    margin-left:0;
-    margin-right:0;
-}
-
-.stats{
-    background:#fbfbfb;
-    border-top:1px solid #eee;
-    display:flex;
-    justify-content:space-around;
-    gap:26px;
-    text-align:center;
-    color:#333;
-    padding:70px 20px;
-}
-
-.stat{
-    --accent:#d71920;
-    --accent-tint:rgba(215,25,32,.1);
-    flex:1;
-    max-width:270px;
-    background:#fff;
-    border:1px solid #eee;
-    border-radius:16px;
-    padding:38px 22px 32px;
-    box-shadow:0 12px 30px rgba(0,0,0,.05);
-    transition:transform .35s ease, box-shadow .35s ease;
-    position:relative;
-    overflow:hidden;
-}
-
-.stat::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    height:5px;
-    background:var(--accent);
-}
-
-.stat:hover{
-    transform:translateY(-8px);
-    box-shadow:0 20px 40px rgba(0,0,0,.1);
-}
-
-.stat-1{ --accent:#d71920; --accent-tint:rgba(215,25,32,.1); }
-.stat-2{ --accent:#1a3a6b; --accent-tint:rgba(26,58,107,.1); }
-.stat-3{ --accent:#0f9d78; --accent-tint:rgba(15,157,120,.1); }
-.stat-4{ --accent:#e08a1e; --accent-tint:rgba(224,138,30,.1); }
-
-.stat-icon{
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    background:var(--accent-tint);
-    color:var(--accent);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 20px;
-}
-
-.stat-icon svg{
-    width:30px;
-    height:30px;
-}
-
-.stat h2{
-    font-size:46px;
-    font-weight:700;
-    color:var(--accent);
-    margin-bottom:10px;
-}
-
-.stat p{
-    font-size:18px;
-    color:#555;
-}
-
-/* ================= LET'S WORK TOGETHER ================= */
-
-.together{
-    background:#2b2b2b;
-    text-align:center;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    min-height:640px;
-}
-
-.together .section-label,
-.together .section-heading{
-    color:#fff;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-.together .section-label{
-    display:block;
-}
-
-.cta-text{
-    max-width:760px;
-    margin:0 auto 40px;
-    font-size:17px;
-    line-height:1.85;
-    color:#bbb;
-}
-
-.cta-divider{
-    width:110px;
-    height:1px;
-    background:rgba(255,255,255,.25);
-    margin:0 auto;
-}
-
-.cta-divider-accent{
-    width:50px;
-    height:3px;
-    background:#d71920;
-    margin:8px auto 60px;
-}
-
-.cta-columns{
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-}
-
-.cta-col{
-    flex:1;
-    max-width:320px;
-    padding:0 40px;
-}
-
-.cta-col + .cta-col{
-    border-left:1px solid rgba(255,255,255,.15);
-}
-
-.together-layout{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:40px;
-    text-align:left;
-}
-
-.together-main{
-    flex:1;
-    text-align:center;
-}
-
-.together-side{
-    flex:0 0 auto;
-}
-
-.simple-contact-link{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    color:#fff;
-    font-size:19px;
-    font-weight:600;
-    text-decoration:none;
-    white-space:nowrap;
-    border-bottom:2px solid #d71920;
-    padding-bottom:6px;
-    transition:.3s;
-}
-
-.simple-contact-link .arrow{
-    color:#d71920;
-    transition:transform .3s;
-}
-
-.simple-contact-link:hover{
-    color:#ff6a6f;
-}
-
-.simple-contact-link:hover .arrow{
-    transform:translateX(4px);
-}
-
-.cta-col h4{
-    color:#ff4b52;
-    font-size:18px;
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:.6px;
-    margin-bottom:16px;
-}
-
-.cta-col p{
-    color:#bbb;
-    line-height:1.85;
-    font-size:15.5px;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    background:#222;
-    color:white;
-    text-align:center;
-    padding:35px;
-    font-size:15px;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:992px){
-
-    .hero{
-        margin-top:150px;
-        height:auto;
-        min-height:auto;
-    }
-
-    .hero-image{
-        position:static;
-        width:100%;
-        height:340px;
-    }
-
-    .hero-shape{
-        position:static;
-        width:100%;
-        height:auto;
-        border:none;
-        border-radius:0;
-        padding:56px 0;
-    }
-
-    .hero-content{
-        max-width:100%;
-        padding:0 28px;
-    }
-
-    .hero-content h1{
-        font-size:34px;
-    }
-
-    .hero-content p{
-        font-size:17px;
-    }
-
-    .hero-content li{
-        font-size:16px;
-    }
-
-    .stats{
-        flex-wrap:wrap;
-        gap:40px;
-    }
-
-    .section-heading{
-        font-size:28px;
-    }
-
-    .who-text{
-        font-size:16px;
-        margin-bottom:40px;
-    }
-
-    .together-layout{
-        flex-direction:column;
-        gap:30px;
-    }
-
-    .together-side{
-        width:100%;
-    }
-
-    .cta-columns{
-        flex-direction:column;
-        align-items:center;
-        gap:36px;
-    }
-
-    .cta-col{
-        max-width:100%;
-        padding:0 10px;
-    }
-
-    .cta-col + .cta-col{
-        border-left:none;
-        border-top:1px solid rgba(255,255,255,.15);
-        padding-top:36px;
-    }
-
-    .services-grid{
-        grid-auto-columns:230px;
-        gap:18px;
-    }
-
-    .service-box{
-        padding:24px 20px;
-    }
-
-    .projects-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    nav{
-        flex-direction:column;
-        height:auto;
-        padding:20px 0;
-        gap:16px;
-    }
-
-    .nav-links{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .nav-links > li{
-        margin:6px 14px;
-    }
-
-    .dropdown,
-    .mega{
-        position:static;
-        box-shadow:none;
-        padding:14px 0 0 0;
-        display:none;
-        opacity:1;
-        visibility:visible;
-        transform:none;
-    }
-
-    .dropdown.open,
-    .mega.open{
-        display:flex;
-        flex-direction:column;
-    }
-
-    .mega.open{
-        gap:28px;
-    }
-
-    .mega-col + .mega-col{
-        border-left:none;
-        padding-left:0;
-    }
-}
-</style>
-
-<style>
-.reveal-el{
-    opacity:0;
-    transform:translateY(28px);
-    transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1);
-    will-change:opacity, transform;
-}
-
-.reveal-el.reveal-visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce){
-    .reveal-el{
-        opacity:1;
-        transform:none;
-        transition:none;
-    }
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-
-<!-- HEADER -->
-
-<header id="top">
-    <div class="container">
-
-        <nav>
-
-            <a class="logo" href="index.html">
-
-                <svg width="56" height="56" viewBox="0 0 46 46" aria-hidden="true">
-                    <polygon points="23,6 40,38 6,38" fill="none" stroke="#d71920" stroke-width="2.5"/>
-                    <polygon points="23,16 33,34 13,34" fill="none" stroke="#d71920" stroke-width="2"/>
-                </svg>
-
-                <div class="logo-text">
-                    <div class="name">PEMCO</div>
-                    <div class="tagline">Engineering Services & General Contractor</div>
-                </div>
-
-            </a>
-
-            <ul class="nav-links">
-
-                <li class="active"><a href="index.html">Home</a></li>
-
-                <li>
-
-                    <button class="nav-toggle" data-target="about-dropdown" aria-expanded="false">
-                        About Us <span class="chevron"></span>
-                    </button>
-
-                    <div class="dropdown" id="about-dropdown">
-                        <a href="our-story.html">Our Story</a>
-                        <a href="leadership-team.html">Leadership Team</a>
-                        <a href="health-safety-quality.html">Health & Safety Quality</a>
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <button class="nav-toggle" data-target="services-dropdown" aria-expanded="false">
-                        Services <span class="chevron"></span>
-                    </button>
-
-                    <div class="mega" id="services-dropdown">
-
-                        <div class="mega-col">
-                            <h4>MEP & Industrial Services</h4>
-                            <a href="structural-steel-work.html">Structural Steel Work</a>
-                            <a href="mechanical-services.html">Mechanical Services</a>
-                            <a href="plumbing-sanitary-system.html">Plumbing & Sanitary System</a>
-                            <a href="power-generation.html">Power Generation</a>
-                            <a href="hvac-system.html">HVAC System</a>
-                            <a href="electrical-services.html">Electrical Services</a>
-                            <a href="elv-communication-system.html">ELV & Communication System</a>
-                        </div>
-
-                        <div class="mega-col">
-                            <h4>Civil & Construction Services</h4>
-                            <a href="building-factory-construction.html">Building & Factory Construction</a>
-                            <a href="construction-management.html">Construction Management</a>
-                            <a href="surveying-services.html">Surveying Services</a>
-                            <a href="engineering-design.html">Engineering Design</a>
-                            <a href="structural-engineering.html">Structural Engineering</a>
-                            <a href="interior-design.html">Interior Design</a>
-                            <a href="renovation-maintenance.html">Renovation, Maintenance</a>
-                            <a href="road-construction.html">Road Construction</a>
-                        </div>
-
-                    </div>
-
-                </li>
-
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-
-            </ul>
-
-        </nav>
-
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav-bar">
+    <a class="brand" href="index.html" aria-label="PEMCO home">
+      <img src="assets/images/logo.svg" alt="PEMCO logo">
+      <span class="brand-text">
+        <strong>PEMCO</strong>
+        <span>Engineering Services &amp; General Contractor</span>
+      </span>
+    </a>
+    <div class="nav-cluster">
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="index.html" class="is-active">Home</a></li>
+          <li>
+            <button type="button" data-dropdown aria-expanded="false" aria-haspopup="true">About <i class="chevron" aria-hidden="true"></i></button>
+            <div class="dropdown" role="menu">
+              <a href="about.html">Our Company</a>
+              <a href="about.html#leadership">Leadership</a>
+              <a href="about.html#facilities">Facilities</a>
+            </div>
+          </li>
+          <li>
+            <button type="button" data-dropdown aria-expanded="false" aria-haspopup="true" class="">Services <i class="chevron" aria-hidden="true"></i></button>
+            <div class="mega" role="menu">
+              <div class="mega-col">
+                <h4>Core Disciplines</h4>
+                <a href="electrical.html">Electrical Engineering</a>
+                <a href="mechanical.html">Mechanical Engineering</a>
+                <a href="civil.html">Civil Engineering</a>
+                <a href="design-drawing.html">Design &amp; Drawing Services</a>
+              </div>
+              <div class="mega-col">
+                <h4>Delivery</h4>
+                <a href="quantity-surveyor.html">Quantity Surveyor Services</a>
+                <a href="installation-repairs.html">Installation &amp; Repairs</a>
+                <a href="renovation.html">Renovation</a>
+                <a href="services.html">All Services</a>
+              </div>
+            </div>
+          </li>
+          <li><a href="projects.html" class="">Projects</a></li>
+          <li><a href="contact.html" class="">Contact</a></li>
+          <li><a class="cta-nav" href="contact.html">Request a Quote</a></li>
+        </ul>
+      </nav>
+      <button class="icon-btn" type="button" data-search-open aria-label="Search site">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
+  </div>
 </header>
 
-<!-- HERO -->
-
-<section class="hero">
-
-    <div class="hero-image"></div>
-
-    <div class="hero-shape">
-
-        <div class="hero-content">
-
-            <h1>
-                From Concept to Completion,
-                We Build with
-                Engineering Expertise
-            </h1>
-
-            <div class="red-line"></div>
-
-            <p>
-                We deliver precision, reliability, and engineering excellence from concept to completion.
-            </p>
-
-            <ul>
-                <li>From construction and structural to MEP automation and industrial systems.</li>
-                <li>Driven by skilled professionals, advanced technology, and a commitment to engineering excellence.</li>
-                <li>Delivering quality-driven solutions designed to stand the test of time.</li>
-            </ul>
-
-            <a href="contact.html" class="btn">Contact Us →</a>
-
-        </div>
-
+<div class="search-overlay" aria-hidden="true">
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Site search">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="site-search" type="search" placeholder="Search services, projects, drawings…" autocomplete="off">
+      <button class="search-close" type="button" data-search-close aria-label="Close search">✕</button>
     </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
 
-</section>
+<main id="main">
 
-<!-- WHO WE ARE -->
+  <section class="hero">
+    <div class="hero-media" role="img" aria-label="PEMCO project building"></div>
+    <div class="hero-content">
+      <div class="hero-brand">PEMCO<span>Since 1996 · Yangon, Myanmar</span></div>
+      <h1>Engineering partners for complex builds</h1>
+      <p>Hire PEMCO for electrical, mechanical, and civil delivery — plus design &amp; drawing outsourcing for international teams.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="services.html">Explore Services</a>
+        <a class="btn btn-secondary" href="contact.html">Talk to Our Team</a>
+      </div>
+    </div>
+  </section>
 
-<section class="who-we-are">
-
+  <section class="section">
     <div class="container">
-
-        <div class="section-intro">
-
-            <span class="section-label">Who We Are</span>
-
-            <h2 class="section-heading">Your Engineering Solutions Partner</h2>
-
-            <p class="who-text">
-                With over 30 years of experience, PEMCO Engineering has built a strong reputation for delivering high-quality engineering and construction solutions across Southeast Asia. Our extensive regional experience, skilled workforce, and commitment to excellence have made us a trusted partner for projects of every scale.
-            </p>
-
-        </div>
-
+      <div class="section-head reveal">
+        <span class="eyebrow">How clients hire us</span>
+        <h2>Clear service paths for project owners and consultants</h2>
+        <p>Organized for the way procurement teams search: by engineering discipline, then by delivery need.</p>
+      </div>
+      <div class="capability-grid">
+        <a class="capability reveal" href="electrical.html">
+          <img src="assets/images/service-electrical.jpg" alt="Electrical engineering project">
+          <div class="capability-body">
+            <span>Discipline</span>
+            <h3>Electrical Engineering</h3>
+            <p>Power, lighting, earthing, automation, and ELV systems.</p>
+          </div>
+        </a>
+        <a class="capability reveal" href="mechanical.html">
+          <img src="assets/images/service-mechanical.jpg" alt="Mechanical engineering project">
+          <div class="capability-body">
+            <span>Discipline</span>
+            <h3>Mechanical Engineering</h3>
+            <p>Steel, piping, HVAC, plumbing, tanks, and machine setting.</p>
+          </div>
+        </a>
+        <a class="capability reveal" href="civil.html">
+          <img src="assets/images/service-civil.jpg" alt="Civil engineering project">
+          <div class="capability-body">
+            <span>Discipline</span>
+            <h3>Civil Engineering</h3>
+            <p>Factories, buildings, roads, survey, and turnkey civil works.</p>
+          </div>
+        </a>
+        <a class="capability reveal" href="design-drawing.html">
+          <img src="assets/images/service-design.jpg" alt="Design and drawing sample">
+          <div class="capability-body">
+            <span>Outsourcing</span>
+            <h3>Design &amp; Drawing</h3>
+            <p>Tender and construction drawings for international clients.</p>
+          </div>
+        </a>
+        <a class="capability reveal" href="quantity-surveyor.html">
+          <img src="assets/images/service-qs.jpg" alt="Quantity surveying documentation">
+          <div class="capability-body">
+            <span>Commercial</span>
+            <h3>Quantity Surveyor</h3>
+            <p>Measurement, costing, and tender documentation support.</p>
+          </div>
+        </a>
+        <a class="capability reveal" href="installation-repairs.html">
+          <img src="assets/images/service-install.jpg" alt="Installation and repairs project">
+          <div class="capability-body">
+            <span>Delivery</span>
+            <h3>Installation &amp; Repairs</h3>
+            <p>M&amp;E installation, commissioning support, and maintenance.</p>
+          </div>
+        </a>
+      </div>
     </div>
+  </section>
 
-    <div class="stats">
-
-        <div class="stat stat-1" data-count="30" data-suffix="+">
-            <div class="stat-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-            </div>
-            <h2><span class="stat-number">0</span><span class="stat-suffix"></span></h2>
-            <p>Years of Experience</p>
-        </div>
-
-        <div class="stat stat-2" data-count="200" data-suffix="+">
-            <div class="stat-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 11h.01M15 11h.01M9 15h.01M15 15h.01"/></svg>
-            </div>
-            <h2><span class="stat-number">0</span><span class="stat-suffix"></span></h2>
-            <p>Projects Completed</p>
-        </div>
-
-        <div class="stat stat-3" data-count="400" data-suffix="+">
-            <div class="stat-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <h2><span class="stat-number">0</span><span class="stat-suffix"></span></h2>
-            <p>Professional Staff</p>
-        </div>
-
-        <div class="stat stat-4" data-count="6" data-suffix="">
-            <div class="stat-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-            </div>
-            <h2><span class="stat-number">0</span><span class="stat-suffix"></span></h2>
-            <p>Divisions</p>
-        </div>
-
+  <section class="section section-tone">
+    <div class="container split">
+      <div class="split-media reveal" style="background-image:url('assets/images/office.jpg')"></div>
+      <div class="split-copy reveal">
+        <span class="eyebrow">Why PEMCO</span>
+        <h2>Built for owners who need reliable engineering execution</h2>
+        <p>PEMCO Co., Ltd. (Progressive Engineer Myanmar Company) has delivered industrial, commercial, power, and infrastructure works across Myanmar since 1996.</p>
+        <p>From fabrication shop capacity in North Dagon to site installation teams, we support full project lifecycles — design, construction, M&amp;E, and renovation.</p>
+        <ul class="split-list">
+          <li>Head office at Yuzana Tower, Bahan Township, Yangon</li>
+          <li>Dedicated electrical, mechanical, civil, design, QS, and renovation sections</li>
+          <li>Proven delivery on power plants, factories, airports, ports, and interiors</li>
+        </ul>
+        <a class="btn btn-outline" href="about.html">About the company</a>
+      </div>
     </div>
+  </section>
 
-</section>
+  <section class="clients-section" id="clients" aria-label="Clients and partners">
+    <div class="section-head">
+      <span class="eyebrow">Clients &amp; partners</span>
+      <h2>Selected clients & partners</h2>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        <div class="marquee-item"><img src="assets/images/clients/totalenergies.svg" alt="TotalEnergies"></div><div class="marquee-item"><img src="assets/images/clients/marina-bay-sands.png" alt="Marina Bay Sands"></div><div class="marquee-item"><img src="assets/images/clients/komatsu.svg" alt="Komatsu"></div><div class="marquee-item"><img src="assets/images/clients/unicef.svg" alt="UNICEF"></div><div class="marquee-item"><img src="assets/images/clients/jica.svg" alt="JICA"></div><div class="marquee-item"><img src="assets/images/clients/mitsui-mark.svg" alt="Mitsui"></div><div class="marquee-item"><img src="assets/images/clients/nokia.svg" alt="Nokia"></div><div class="marquee-item"><img src="assets/images/clients/mitsubishi.svg" alt="Mitsubishi"></div><div class="marquee-item"><img src="assets/images/clients/chatrium.png" alt="Chatrium"></div><div class="marquee-item"><img src="assets/images/clients/mpt.png" alt="MPT"></div><div class="marquee-item"><img src="assets/images/clients/zamil.png" alt="Zamil Steel"></div><div class="marquee-item"><img src="assets/images/clients/okamura.png" alt="Okamura"></div><div class="marquee-item"><img src="assets/images/clients/japan-embassy.svg" alt="Embassy of Japan"></div><div class="marquee-item"><img src="assets/images/clients/australian-embassy.svg" alt="Australian Embassy"></div><div class="marquee-item"><img src="assets/images/clients/asia-optical.svg" alt="Asia Optical"></div><div class="marquee-item"><img src="assets/images/clients/hotel-nikko.svg" alt="Hotel Nikko"></div><div class="marquee-item"><img src="assets/images/clients/strand-hotel.svg" alt="The Strand"></div><div class="marquee-item"><img src="assets/images/clients/totalenergies.svg" alt="TotalEnergies"></div><div class="marquee-item"><img src="assets/images/clients/marina-bay-sands.png" alt="Marina Bay Sands"></div><div class="marquee-item"><img src="assets/images/clients/komatsu.svg" alt="Komatsu"></div><div class="marquee-item"><img src="assets/images/clients/unicef.svg" alt="UNICEF"></div><div class="marquee-item"><img src="assets/images/clients/jica.svg" alt="JICA"></div><div class="marquee-item"><img src="assets/images/clients/mitsui-mark.svg" alt="Mitsui"></div><div class="marquee-item"><img src="assets/images/clients/nokia.svg" alt="Nokia"></div><div class="marquee-item"><img src="assets/images/clients/mitsubishi.svg" alt="Mitsubishi"></div><div class="marquee-item"><img src="assets/images/clients/chatrium.png" alt="Chatrium"></div><div class="marquee-item"><img src="assets/images/clients/mpt.png" alt="MPT"></div><div class="marquee-item"><img src="assets/images/clients/zamil.png" alt="Zamil Steel"></div><div class="marquee-item"><img src="assets/images/clients/okamura.png" alt="Okamura"></div><div class="marquee-item"><img src="assets/images/clients/japan-embassy.svg" alt="Embassy of Japan"></div><div class="marquee-item"><img src="assets/images/clients/australian-embassy.svg" alt="Australian Embassy"></div><div class="marquee-item"><img src="assets/images/clients/asia-optical.svg" alt="Asia Optical"></div><div class="marquee-item"><img src="assets/images/clients/hotel-nikko.svg" alt="Hotel Nikko"></div><div class="marquee-item"><img src="assets/images/clients/strand-hotel.svg" alt="The Strand"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- WHAT WE BUILD -->
-
-<section class="what-we-build">
-
+  <section class="section section-dark">
     <div class="container">
-
-        <div class="section-intro">
-
-            <span class="section-label">What We Build</span>
-
-            <h2 class="section-heading">Engineered Projects Built for Performance</h2>
-
-            <p class="build-text">
-                We build advanced engineering solutions that bring together innovation, technical expertise, and quality workmanship. Each project is carefully executed to deliver lasting performance, efficiency, and value.
-            </p>
-
-        </div>
-
-        <div class="projects-grid">
-
-            <div class="project-card" style="background-image:url('project-01.jpg')">
-                <span class="project-name">Industrial Plant Construction</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-02.jpg')">
-                <span class="project-name">Commercial Office Tower</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-03.jpg')">
-                <span class="project-name">Power Substation Upgrade</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-04.jpg')">
-                <span class="project-name">Residential Complex</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-05.jpg')">
-                <span class="project-name">HVAC Retrofit Project</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-06.jpg')">
-                <span class="project-name">Bridge & Road Infrastructure</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-07.jpg')">
-                <span class="project-name">Factory Expansion</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-08.jpg')">
-                <span class="project-name">Water Treatment Facility</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-09.jpg')">
-                <span class="project-name">High-Rise Building</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-10.jpg')">
-                <span class="project-name">Warehouse & Logistics Hub</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-11.jpg')">
-                <span class="project-name">Structural Steel Fabrication</span>
-            </div>
-
-            <div class="project-card" style="background-image:url('project-12.jpg')">
-                <span class="project-name">Renovation & Maintenance Works</span>
-            </div>
-
-        </div>
-
-        <div class="view-all-wrap">
-            <a href="projects.html" class="view-all-link">View All Projects →</a>
-        </div>
-
+      <div class="section-head reveal">
+        <span class="eyebrow">Track record</span>
+        <h2>Projects that demonstrate multi-discipline capability</h2>
+        <p>Selected works from PEMCO’s company profile — industrial, power, aviation, commercial, and social infrastructure.</p>
+      </div>
+      <div class="project-grid">
+        <figure class="project-tile reveal">
+          <img src="assets/images/project-02.jpg" alt="Thilawa Substation project">
+          <figcaption><h3>230kV Thilawa Substation</h3><p>Civil, electrical &amp; mechanical works</p></figcaption>
+        </figure>
+        <figure class="project-tile reveal">
+          <img src="assets/images/project-03.jpg" alt="Thilawa port extension">
+          <figcaption><h3>Thilawa Port Extension</h3><p>Mechanical &amp; electrical installation</p></figcaption>
+        </figure>
+        <figure class="project-tile reveal">
+          <img src="assets/images/project-06.jpg" alt="Nay Pyi Taw International Airport works">
+          <figcaption><h3>Nay Pyi Taw International Airport</h3><p>Electrical, fire alarm &amp; generator works</p></figcaption>
+        </figure>
+        <figure class="project-tile reveal">
+          <img src="assets/images/project-04.jpg" alt="Industrial building project">
+          <figcaption><h3>Factory &amp; Warehouse Builds</h3><p>Youngin, Acecook, Daizen &amp; more</p></figcaption>
+        </figure>
+        <figure class="project-tile reveal">
+          <img src="assets/images/project-05.jpg" alt="Interior fit-out project">
+          <figcaption><h3>Commercial Interiors</h3><p>Hotels, offices, call centers</p></figcaption>
+        </figure>
+        <figure class="project-tile reveal">
+          <img src="assets/images/project-08.jpg" alt="Water treatment facility">
+          <figcaption><h3>Water &amp; Wastewater Plants</h3><p>Thilawa SEZ treatment facilities</p></figcaption>
+        </figure>
+      </div>
+      <div style="margin-top:1.6rem" class="reveal">
+        <a class="btn btn-secondary" href="projects.html">View project portfolio</a>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><strong>1996</strong><span>Established in Myanmar</span></div>
+        <div class="stat"><strong>3</strong><span>Core engineering disciplines</span></div>
+        <div class="stat"><strong>M&amp;E</strong><span>Fabrication + site installation</span></div>
+        <div class="stat"><strong>QS</strong><span>Commercial support in-house</span></div>
+      </div>
     </div>
+  </section>
 
-</section>
-
-<!-- SERVICES -->
-
-<section class="services">
-
+  <section class="section">
     <div class="container">
-
-        <h2 class="section-title">Our Services</h2>
-
-        <div class="services-scroll">
-            <div class="services-grid">
-
-                <a class="service-box civil" href="building-factory-construction.html">
-                    <span class="tag">Civil & Construction</span>
-                    <h3>Building & Factory Construction</h3>
-                </a>
-
-                <a class="service-box mep" href="structural-steel-work.html">
-                    <span class="tag">MEP & Industrial</span>
-                    <h3>Structural Steel Work</h3>
-                </a>
-
-                <a class="service-box civil" href="construction-management.html">
-                    <span class="tag">Civil & Construction</span>
-                    <h3>Construction Management</h3>
-                </a>
-
-                <a class="service-box mep" href="mechanical-services.html">
-                    <span class="tag">MEP & Industrial</span>
-                    <h3>Mechanical Services</h3>
-                </a>
-
-                <a class="service-box civil" href="surveying-services.html">
-                    <span class="tag">Civil & Construction</span>
-                    <h3>Surveying Services</h3>
-                </a>
-
-                <a class="service-box mep" href="plumbing-sanitary-system.html">
-                    <span class="tag">MEP & Industrial</span>
-                    <h3>Plumbing & Sanitary System</h3>
-                </a>
-
-                <a class="service-box civil" href="engineering-design.html">
-                    <span class="tag">Civil & Construction</span>
-                    <h3>Engineering Design</h3>
-                </a>
-
-                <a class="service-box mep" href="power-generation.html">
-                    <span class="tag">MEP & Industrial</span>
-                    <h3>Power Generation</h3>
-                </a>
-
-                <a class="service-box civil" href="structural-engineering.html">
-                    <span class="tag">Civil & Construction</span>
-                    <h3>Structural Engineering</h3>
-                </a>
-
-                <a class="service-box mep" href="hvac-system.html">
-                    <span class="tag">MEP & Industrial</span>
-                    <h3>HVAC System</h3>
-                </a>
-
-                <a class="service-box civil" href="interior-design.html">
-                    <span class="tag">Civil & Construction</span>
-                    <h3>Interior Design</h3>
-                </a>
-
-                <a class="service-box mep" href="electrical-services.html">
-                    <span class="tag">MEP & Industrial</span>
-                    <h3>Electrical Services</h3>
-                </a>
-
-                <a class="service-box civil" href="renovation-maintenance.html">
-                    <span class="tag">Civil & Construction</span>
-                    <h3>Renovation, Maintenance</h3>
-                </a>
-
-                <a class="service-box mep" href="elv-communication-system.html">
-                    <span class="tag">MEP & Industrial</span>
-                    <h3>ELV & Communication System</h3>
-                </a>
-
-                <a class="service-box civil" href="road-construction.html">
-                    <span class="tag">Civil & Construction</span>
-                    <h3>Road Construction</h3>
-                </a>
-
-            </div>
-        </div>
-
+      <div class="section-head reveal">
+        <span class="eyebrow">Design outsourcing</span>
+        <h2>Drawing support for international companies</h2>
+        <p>Need tender or construction drawings aligned to electrical, mechanical, or civil scopes? Contact us for quotes.</p>
+      </div>
+      <div class="drawing-grid reveal">
+        <figure>
+          <img src="assets/images/drawing-01.jpg" alt="Sample tender drawing layout">
+          <figcaption>Sample tender drawing set</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/drawing-02.jpg" alt="Sample interior layout drawing">
+          <figcaption>Layout &amp; detailing support</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/drawing-03.jpg" alt="Sample elevation drawing">
+          <figcaption>Elevation &amp; joinery packages</figcaption>
+        </figure>
+      </div>
+      <div style="margin-top:1.5rem" class="reveal">
+        <a class="btn btn-primary" href="design-drawing.html">Design &amp; Drawing Services</a>
+      </div>
     </div>
+  </section>
 
-</section>
-
-<!-- LET'S WORK TOGETHER -->
-
-<section class="together">
-
+  <section class="section" style="padding-top:0">
     <div class="container">
-
-        <div class="together-layout">
-
-            <div class="together-main">
-
-                <h2 class="section-heading">Let's Work Together</h2>
-
-                <p class="cta-text">
-                    We build to the highest standards of safety, quality and excellence. Through our collaborative culture and entrepreneurial approach, we derive innovative solutions that deliver long-term, tangible value for our clients, partners and communities. Let's get to work–together.
-                </p>
-
-                <div class="cta-divider"></div>
-                <div class="cta-divider-accent"></div>
-
-                <div class="cta-columns">
-
-                    <div class="cta-col">
-                        <h4>Address</h4>
-                        <p>1404, 1405, 1406, Yuzana Tower, Shwe Gon<br>Taing Junction, Bahan Township, Yangon,<br>Myanmar. 11201</p>
-                    </div>
-
-                    <div class="cta-col">
-                        <h4>Open Hours</h4>
-                        <p>Monday – Friday<br>9:00 AM – 6:00 PM</p>
-                    </div>
-
-                    <div class="cta-col">
-                        <h4>Contact Info</h4>
-                        <p>95-1-559678<br>95-1-559751<br>95-1-554885<br><br>pemco@myanmar.com.mm<br>pemco.myanmar@gmail.com</p>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="together-side">
-
-                <a href="contact.html" class="simple-contact-link">
-                    Contact Us <span class="arrow">→</span>
-                </a>
-
-            </div>
-
+      <div class="cta-band reveal">
+        <div>
+          <h2>Ready to scope your next package?</h2>
+          <p>Tell us whether you need construction, M&amp;E installation, renovation, or drawing outsourcing.</p>
         </div>
-
+        <a class="btn btn-primary" href="contact.html">Contact PEMCO</a>
+      </div>
     </div>
+  </section>
+</main>
 
-</section>
-
-<!-- FOOTER -->
-
-<footer>
-    © 2026 PEMCO Engineering. All Rights Reserved.
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <strong>PEMCO</strong>
+      <p>Progressive Engineer Myanmar Company Limited — engineering services and general contracting since 1996.</p>
+    </div>
+    <div>
+      <h3>Services</h3>
+      <div class="footer-links">
+        <a href="electrical.html">Electrical</a>
+        <a href="mechanical.html">Mechanical</a>
+        <a href="civil.html">Civil</a>
+        <a href="design-drawing.html">Design &amp; Drawing</a>
+      </div>
+    </div>
+    <div>
+      <h3>Company</h3>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="services.html">All Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div>
+      <h3>Head Office</h3>
+      <p>#1404–1406, Yuzana Tower, Shwe Gon Taing Junction, Bahan Township, Yangon, Myanmar 11201</p>
+      <p style="margin-top:.7rem"><a href="mailto:pemco@myanmar.com.mm">pemco@myanmar.com.mm</a><br><a href="mailto:pemco.myanmar@gmail.com">pemco.myanmar@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 PEMCO Company Limited. All rights reserved.</span>
+    <span>Yangon · Fabrication Shop, North Dagon</span>
+  </div>
 </footer>
-
-<script>
-document.querySelectorAll('.nav-toggle').forEach(function(btn){
-
-    btn.addEventListener('click', function(e){
-
-        e.stopPropagation();
-
-        const targetId = btn.getAttribute('data-target');
-        const target = document.getElementById(targetId);
-        const isOpen = target.classList.contains('open');
-
-        document.querySelectorAll('.dropdown.open, .mega.open').forEach(function(el){
-            el.classList.remove('open');
-        });
-
-        document.querySelectorAll('.nav-toggle').forEach(function(b){
-            b.setAttribute('aria-expanded','false');
-        });
-
-        if(!isOpen){
-            target.classList.add('open');
-            btn.setAttribute('aria-expanded','true');
-        }
-
-    });
-
-});
-
-document.addEventListener('click', function(){
-
-    document.querySelectorAll('.dropdown.open, .mega.open').forEach(function(el){
-        el.classList.remove('open');
-    });
-
-    document.querySelectorAll('.nav-toggle').forEach(function(b){
-        b.setAttribute('aria-expanded','false');
-    });
-
-});
-
-document.querySelectorAll('.dropdown, .mega').forEach(function(el){
-
-    el.addEventListener('click', function(e){
-        e.stopPropagation();
-    });
-
-});
-
-/* ---- Stats count-up animation ---- */
-
-(function(){
-
-    const stats = document.querySelectorAll('.stat');
-    if(!stats.length) return;
-
-    function animateStat(el){
-
-        const target = parseInt(el.getAttribute('data-count'), 10) || 0;
-        const suffix = el.getAttribute('data-suffix') || '';
-        const numberEl = el.querySelector('.stat-number');
-        const suffixEl = el.querySelector('.stat-suffix');
-        const duration = 1800;
-        let startTime = null;
-
-        function easeOutQuad(t){
-            return t * (2 - t);
-        }
-
-        function step(timestamp){
-
-            if(!startTime) startTime = timestamp;
-
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            const eased = easeOutQuad(progress);
-            const current = Math.floor(eased * target);
-
-            numberEl.textContent = current;
-
-            if(progress < 1){
-                requestAnimationFrame(step);
-            }else{
-                numberEl.textContent = target;
-                suffixEl.textContent = suffix;
-            }
-
-        }
-
-        requestAnimationFrame(step);
-
-    }
-
-    const observer = new IntersectionObserver(function(entries){
-
-        entries.forEach(function(entry){
-
-            if(entry.isIntersecting){
-                animateStat(entry.target);
-                observer.unobserve(entry.target);
-            }
-
-        });
-
-    }, { threshold: 0.4 });
-
-    stats.forEach(function(stat){
-        observer.observe(stat);
-    });
-
-})();
-</script>
-
-
-<script>
-(function(){
-
-    var selectors = [
-        '.hero-content > h1',
-        '.hero-content > .red-line',
-        '.hero-content > p',
-        '.hero-content > ul',
-        '.hero-content > a.btn',
-        '.projects-hero-content > *',
-        '.section-intro > *',
-        '.section-title',
-        '.stat',
-        '.project-card',
-        '.service-box',
-        '.cta-col',
-        '.value-box',
-        '.values-title',
-        '.values-text',
-        '.contact-block',
-        '.contact-info > h2',
-        '.contact-info > p.lead',
-        '.contact-form-wrap > h2',
-        '.form-row',
-        '.intro-text',
-        '.together-main > h2',
-        '.together-main > p.cta-text',
-        '.together-main > .cta-divider',
-        '.together-main > .cta-divider-accent',
-        '.together-main > .cta-columns',
-        '.together-side',
-        '.page-actions'
-    ];
-
-    var nodes = document.querySelectorAll(selectors.join(','));
-    if(!nodes.length) return;
-
-    var perParentIndex = new Map();
-
-    nodes.forEach(function(el){
-
-        el.classList.add('reveal-el');
-
-        var parent = el.parentElement;
-        var idx = perParentIndex.get(parent) || 0;
-        el.style.transitionDelay = (idx * 0.09) + 's';
-        perParentIndex.set(parent, idx + 1);
-
-    });
-
-    function revealNow(el){
-        el.classList.add('reveal-visible');
-    }
-
-    function isInInitialView(el){
-        var rect = el.getBoundingClientRect();
-        return rect.top < window.innerHeight * 0.92;
-    }
-
-    var observer = new IntersectionObserver(function(entries){
-
-        entries.forEach(function(entry){
-
-            if(entry.isIntersecting){
-                revealNow(entry.target);
-                observer.unobserve(entry.target);
-            }
-
-        });
-
-    }, { threshold: 0.15 });
-
-    requestAnimationFrame(function(){
-        requestAnimationFrame(function(){
-
-            nodes.forEach(function(el){
-
-                if(isInInitialView(el)){
-                    revealNow(el);
-                }else{
-                    observer.observe(el);
-                }
-
-            });
-
-        });
-    });
-
-})();
-</script>
+<script src="assets/js/search-data.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
