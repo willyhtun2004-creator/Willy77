@@ -376,11 +376,52 @@ PAGES["index.html"] = page(
 """,
 )
 
+def leadership_html():
+    leaders = [
+        ("U Nay Soe Aung", "Managing Director"),
+        ("U Aung Ko", "General Manager"),
+        ("U Yin Sein", "Board of Director"),
+        ("U Aung Aung Kyaw", "Board of Director"),
+        ("U Ye Htut Aye", "Board of Director"),
+        ("U Khin Maung Lin", "Board of Director"),
+        ("U Htun Htun Oo", "Board of Director"),
+        ("U Saw Yan Aung Thein", "Board of Director"),
+        ("U Ko Ko Naing", "Board of Director"),
+    ]
+    cards = []
+    for name, title in leaders:
+        src = f"assets/images/leadership/{name}.jpg"
+        cards.append(
+            f"""
+        <article class="leader-card reveal">
+          <div class="leader-photo">
+            <img src="{src}" alt="{name}" loading="lazy">
+          </div>
+          <h3>{name}</h3>
+          <p class="leader-title">{title}</p>
+        </article>"""
+        )
+    return f"""
+  <section class="section section-tone" id="leadership">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Leadership</span>
+        <h2>Board and management</h2>
+        <p>PEMCO is guided by an experienced leadership team across construction and engineering delivery.</p>
+      </div>
+      <div class="leadership-grid">
+        {''.join(cards)}
+      </div>
+    </div>
+  </section>
+"""
+
+
 PAGES["about.html"] = page(
     "About PEMCO | Progressive Engineer Myanmar Company",
     "Learn about PEMCO Co., Ltd. — established 1996/1997 in Yangon with electrical, mechanical, civil, design, QS, and renovation capability.",
     "about",
-    """
+    f"""
 <main id="main">
   <section class="page-hero" style="--page-bg:url('assets/images/office.jpg')">
     <div class="container">
@@ -403,20 +444,22 @@ PAGES["about.html"] = page(
           <li><b>04</b><span><strong>Fabrication Shop</strong><br>E(12), D(14), Economic Development Zone, North Dagon Township, Yangon</span></li>
         </ul>
       </div>
-      <aside class="side-panel reveal" id="leadership">
-        <h3>Leadership</h3>
-        <p>Board and management leadership guiding multi-discipline delivery.</p>
+      <aside class="side-panel reveal">
+        <h3>Connect with PEMCO</h3>
+        <p>Speak with our team about project delivery, fabrication, and multi-discipline engineering support.</p>
         <ul>
-          <li>Managing Director: U Nay Soe Aung</li>
-          <li>General Manager: U Aung Ko</li>
-          <li>Board includes directors across construction and engineering leadership</li>
+          <li>Head office in Bahan Township, Yangon</li>
+          <li>Fabrication shop in North Dagon</li>
+          <li>Multi-discipline project teams</li>
         </ul>
         <a class="btn btn-primary" href="contact.html">Contact leadership team</a>
       </aside>
     </div>
   </section>
 
-  <section class="section section-tone" id="facilities">
+  {leadership_html()}
+
+  <section class="section" id="facilities">
     <div class="container split">
       <div class="split-media reveal" style="background-image:url('assets/images/hero.jpg')"></div>
       <div class="split-copy reveal">
@@ -565,7 +608,7 @@ PAGES["mechanical.html"] = service_page(
         "Industrial fabrication & install",
         "Process and piping packages",
         "Factory mechanical systems",
-        "HVAC and building services",
+        "Power Plant MEP Work",
         "Equipment setting projects",
     ],
 )
