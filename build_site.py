@@ -44,9 +44,9 @@ HEADER = """<!DOCTYPE html>
             <div class="mega" role="menu">
               <div class="mega-col">
                 <h4>Core Disciplines</h4>
+                <a href="civil.html">Civil Engineering</a>
                 <a href="electrical.html">Electrical Engineering</a>
                 <a href="mechanical.html">Mechanical Engineering</a>
-                <a href="civil.html">Civil Engineering</a>
                 <a href="design-drawing.html">Design &amp; Drawing Services</a>
               </div>
               <div class="mega-col">
@@ -95,9 +95,9 @@ FOOTER = """
     <div>
       <h3>Services</h3>
       <div class="footer-links">
+        <a href="civil.html">Civil</a>
         <a href="electrical.html">Electrical</a>
         <a href="mechanical.html">Mechanical</a>
-        <a href="civil.html">Civil</a>
         <a href="design-drawing.html">Design &amp; Drawing</a>
       </div>
     </div>
@@ -217,6 +217,14 @@ PAGES["index.html"] = page(
         <p>Organized for the way procurement teams search: by engineering discipline, then by delivery need.</p>
       </div>
       <div class="capability-grid">
+        <a class="capability reveal" href="civil.html">
+          <img src="assets/images/service-civil.jpg" alt="Civil engineering project">
+          <div class="capability-body">
+            <span>Discipline</span>
+            <h3>Civil Engineering</h3>
+            <p>Factories, buildings, roads, survey, and turnkey civil works.</p>
+          </div>
+        </a>
         <a class="capability reveal" href="electrical.html">
           <img src="assets/images/service-electrical.jpg" alt="Electrical engineering project">
           <div class="capability-body">
@@ -231,14 +239,6 @@ PAGES["index.html"] = page(
             <span>Discipline</span>
             <h3>Mechanical Engineering</h3>
             <p>Steel, piping, HVAC, plumbing, tanks, and machine setting.</p>
-          </div>
-        </a>
-        <a class="capability reveal" href="civil.html">
-          <img src="assets/images/service-civil.jpg" alt="Civil engineering project">
-          <div class="capability-body">
-            <span>Discipline</span>
-            <h3>Civil Engineering</h3>
-            <p>Factories, buildings, roads, survey, and turnkey civil works.</p>
           </div>
         </a>
         <a class="capability reveal" href="design-drawing.html">
@@ -787,6 +787,14 @@ PAGES["services.html"] = page(
         <h2>Construction &amp; engineering categories</h2>
       </div>
       <div class="service-board">
+        <a class="service-card reveal" href="civil.html">
+          <img src="assets/images/service-civil.jpg" alt="">
+          <div>
+            <h3>Civil Engineering</h3>
+            <p>Factories, buildings, roads, survey, structural design, turnkey civil works.</p>
+            <span class="link">View scope →</span>
+          </div>
+        </a>
         <a class="service-card reveal" href="electrical.html">
           <img src="assets/images/service-electrical.jpg" alt="">
           <div>
@@ -800,14 +808,6 @@ PAGES["services.html"] = page(
           <div>
             <h3>Mechanical Engineering</h3>
             <p>Steel, tanks, piping, HVAC, plumbing, machine setting, power plant MEP.</p>
-            <span class="link">View scope →</span>
-          </div>
-        </a>
-        <a class="service-card reveal" href="civil.html">
-          <img src="assets/images/service-civil.jpg" alt="">
-          <div>
-            <h3>Civil Engineering</h3>
-            <p>Factories, buildings, roads, survey, structural design, turnkey civil works.</p>
             <span class="link">View scope →</span>
           </div>
         </a>
@@ -943,9 +943,9 @@ PAGES["contact.html"] = page(
         </label>
         <label>Service interest
           <select name="service">
+            <option>Civil Engineering</option>
             <option>Electrical Engineering</option>
             <option>Mechanical Engineering</option>
-            <option>Civil Engineering</option>
             <option>Design &amp; Drawing Outsourcing</option>
             <option>Quantity Surveyor Services</option>
             <option>Installation &amp; Repairs</option>
