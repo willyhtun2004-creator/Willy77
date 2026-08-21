@@ -21,11 +21,7 @@ HEADER = """<!DOCTYPE html>
 <header class="site-header">
   <div class="container nav-bar">
     <a class="brand" href="index.html" aria-label="PEMCO home">
-      <img src="assets/images/logo.svg" alt="PEMCO logo">
-      <span class="brand-text">
-        <strong>PEMCO</strong>
-        <span>Engineering Services &amp; General Contractor</span>
-      </span>
+      <img src="assets/images/pemco-brand-logo.png" alt="PEMCO - Engineering Services &amp; General Contractor">
     </a>
     <div class="nav-cluster">
       <nav aria-label="Primary">
@@ -138,8 +134,8 @@ def chrome(active=""):
     }
 
 
-# Prefer real logo files (svg marks / png) over text wordmarks when available.
-CLIENT_LOGOS = [
+# Client logos split across two streaming rows
+CLIENT_LOGOS_ROW1 = [
     ("totalenergies.svg", "TotalEnergies"),
     ("marina-bay-sands.png", "Marina Bay Sands"),
     ("komatsu.svg", "Komatsu"),
@@ -149,6 +145,10 @@ CLIENT_LOGOS = [
     ("nokia.svg", "Nokia"),
     ("mitsubishi.svg", "Mitsubishi"),
     ("chatrium.png", "Chatrium"),
+    ("cp-seed.svg", "CP Seed"),
+]
+
+CLIENT_LOGOS_ROW2 = [
     ("mpt.png", "MPT"),
     ("zamil.png", "Zamil Steel"),
     ("okamura.png", "Okamura"),
@@ -157,16 +157,23 @@ CLIENT_LOGOS = [
     ("asia-optical.svg", "Asia Optical"),
     ("hotel-nikko.svg", "Hotel Nikko"),
     ("strand-hotel.svg", "The Strand"),
+    ("acecook.png", "Acecook"),
 ]
 
 
 def clients_marquee(section_id="clients", heading="Selected clients & partners"):
-    items = "".join(
-        f'<div class="marquee-item"><img src="assets/images/clients/{src}" alt="{name.replace("&", "&amp;")}"></div>'
-        for src, name in CLIENT_LOGOS
-    )
-    # Duplicate for seamless loop
-    track = items + items
+    def make_row(logos):
+        items = "".join(
+            f'<div class="marquee-item"><img src="assets/images/clients/{src}" alt="{name.replace("&", "&amp;")}"></div>'
+            for src, name in logos
+        )
+        return (
+            '<div class="marquee-row">'
+            f'<div class="marquee-group">{items}{items}</div>'
+            f'<div class="marquee-group" aria-hidden="true">{items}{items}</div>'
+            '</div>'
+        )
+
     return f"""
   <section class="clients-section" id="{section_id}" aria-label="Clients and partners">
     <div class="section-head">
@@ -174,9 +181,8 @@ def clients_marquee(section_id="clients", heading="Selected clients & partners")
       <h2>{heading}</h2>
     </div>
     <div class="marquee">
-      <div class="marquee-track">
-        {track}
-      </div>
+      {make_row(CLIENT_LOGOS_ROW1)}
+      {make_row(CLIENT_LOGOS_ROW2)}
     </div>
   </section>
 """
@@ -296,31 +302,72 @@ PAGES["index.html"] = page(
         <h2>Projects that demonstrate multi-discipline capability</h2>
         <p>Selected works from PEMCO’s company profile — industrial, power, commercial, and social infrastructure.</p>
       </div>
-      <div class="project-grid">
-        <figure class="project-tile reveal">
-          <img src="assets/images/project-02.jpg" alt="Thilawa Substation project">
-          <figcaption><h3>230kV Thilawa Substation</h3><p>Civil, electrical &amp; mechanical works</p></figcaption>
-        </figure>
-        <figure class="project-tile reveal">
-          <img src="assets/images/project-03.jpg" alt="Thilawa port extension">
-          <figcaption><h3>Thilawa Port Extension</h3><p>Mechanical &amp; electrical installation</p></figcaption>
-        </figure>
-        <figure class="project-tile reveal">
-          <img src="assets/images/project-04.jpg" alt="Industrial building project">
-          <figcaption><h3>Factory &amp; Warehouse Builds</h3><p>Youngin, Acecook, Daizen &amp; more</p></figcaption>
-        </figure>
-        <figure class="project-tile reveal">
-          <img src="assets/images/project-05.jpg" alt="Commercial interiors project">
-          <figcaption><h3>Commercial Interiors</h3><p>Hotels, offices, call centers</p></figcaption>
-        </figure>
-        <figure class="project-tile reveal">
-          <img src="assets/images/project-08.jpg" alt="Water treatment facility">
-          <figcaption><h3>Water &amp; Wastewater Plants</h3><p>Thilawa SEZ treatment facilities</p></figcaption>
-        </figure>
-        <figure class="project-tile reveal">
-          <img src="assets/images/project-09.jpg" alt="School construction project">
-          <figcaption><h3>School &amp; Community Builds</h3><p>Education and social infrastructure</p></figcaption>
-        </figure>
+      <div class="project-carousel reveal" data-project-carousel>
+        <div class="project-carousel-viewport">
+          <div class="project-carousel-track">
+            <div class="project-carousel-slide">
+              <div class="project-grid">
+                <figure class="project-tile">
+                  <img src="assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/01.jpg" alt="230kV Thilawa Substation">
+                  <figcaption><h3>230kV Thilawa Substation</h3><p>Civil, electrical &amp; mechanical works</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/01.jpg" alt="Thilawa Port Extension">
+                  <figcaption><h3>Thilawa Port Extension</h3><p>Mechanical &amp; electrical installation</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/Thilawa-Subsation/Water-Purification-Plant%20%26%20Sewage-Water-Treatment/01.png" alt="Water purification and sewage treatment plant">
+                  <figcaption><h3>Water &amp; Wastewater Plants</h3><p>Thilawa SEZ treatment facilities</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/50MW-Ywama-Power-Plant/01.png" alt="50MW Ywama Power Plant">
+                  <figcaption><h3>50MW Ywama Power Plant</h3><p>Power plant civil &amp; M&amp;E works</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/ACMV-System-Work-at-Marina-Bay/01.jpg" alt="ACMV system work at Marina Bay">
+                  <figcaption><h3>ACMV System Work at Marina Bay</h3><p>Air-conditioning &amp; mechanical ventilation</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/Asia-Optical-Steel-Structure-Erection%20/01.jpg" alt="Asia Optical steel structure erection">
+                  <figcaption><h3>Asia Optical Steel Structure Erection</h3><p>Structural steel fabrication &amp; erection</p></figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="project-carousel-slide">
+              <div class="project-grid">
+                <figure class="project-tile">
+                  <img src="assets/images/projects/Komat%27su-Remanufacturing/01.png" alt="Komatsu remanufacturing facility">
+                  <figcaption><h3>Komatsu Remanufacturing</h3><p>Industrial facility M&amp;E packages</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/MUSE-Shopping-Mall/01.jpg" alt="MUSE Shopping Mall">
+                  <figcaption><h3>MUSE Shopping Mall</h3><p>Commercial M&amp;E &amp; interiors</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/Myanmar-kaido/01.jpg" alt="Myanmar Kaido industrial build">
+                  <figcaption><h3>Myanmar Kaido</h3><p>Factory and facility construction</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/Nay-Pyi-Daw-Airport/01.jpg" alt="Nay Pyi Daw Airport">
+                  <figcaption><h3>Nay Pyi Daw Airport</h3><p>Airport infrastructure works</p></figcaption>
+                </figure>
+                <figure class="project-tile">
+                  <img src="assets/images/projects/Yadana-Platform/01.jpg" alt="Yadana Platform">
+                  <figcaption><h3>Yadana Platform</h3><p>Oil &amp; gas platform works</p></figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-carousel-controls">
+          <button class="project-carousel-btn" type="button" data-carousel-prev aria-label="Previous projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="project-carousel-dots" data-carousel-dots></div>
+          <button class="project-carousel-btn" type="button" data-carousel-next aria-label="Next projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
       <div style="margin-top:1.6rem" class="reveal">
         <a class="btn btn-secondary" href="projects.html">View project portfolio</a>
