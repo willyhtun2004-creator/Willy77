@@ -194,13 +194,14 @@ CLIENT_LOGOS_ROW2 = [
 
 
 def clients_marquee(section_id="clients", heading="Selected clients & partners"):
-    def make_row(logos):
+    def make_row(logos, is_reverse=False):
         items = "".join(
             f'<div class="marquee-item"><img src="assets/images/clients/{src}" alt="{name.replace("&", "&amp;")}"></div>'
             for src, name in logos
         )
+        row_class = "marquee-row marquee-row-reverse" if is_reverse else "marquee-row"
         return (
-            '<div class="marquee-row">'
+            f'<div class="{row_class}">'
             f'<div class="marquee-group">{items}{items}</div>'
             f'<div class="marquee-group" aria-hidden="true">{items}{items}</div>'
             '</div>'
@@ -213,8 +214,8 @@ def clients_marquee(section_id="clients", heading="Selected clients & partners")
       <h2>{heading}</h2>
     </div>
     <div class="marquee">
-      {make_row(CLIENT_LOGOS_ROW1)}
-      {make_row(CLIENT_LOGOS_ROW2)}
+      {make_row(CLIENT_LOGOS_ROW1, is_reverse=True)}
+      {make_row(CLIENT_LOGOS_ROW2, is_reverse=False)}
     </div>
   </section>
 """

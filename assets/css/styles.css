@@ -1444,6 +1444,10 @@ ul {
   will-change: transform;
 }
 
+.marquee-row-reverse .marquee-group {
+  animation-name: marquee-stream-reverse;
+}
+
 .marquee-item {
   flex: 0 0 auto;
   display: flex;
@@ -1479,6 +1483,15 @@ ul {
   }
   to {
     transform: translateX(calc(-100% - var(--marquee-gap)));
+  }
+}
+
+@keyframes marquee-stream-reverse {
+  from {
+    transform: translateX(calc(-100% - var(--marquee-gap)));
+  }
+  to {
+    transform: translateX(0);
   }
 }
 
