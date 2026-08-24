@@ -154,6 +154,37 @@
     <span>Yangon · Fabrication Shop, North Dagon</span>
   </div>
 </footer>
+
+<div class="project-modal" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project photo gallery">
+  <div class="project-modal-backdrop" data-modal-close></div>
+  <div class="project-modal-dialog">
+    <div class="project-modal-header">
+      <div class="project-modal-info">
+        <h3 id="project-modal-title">Project Title</h3>
+        <p id="project-modal-desc">Project Description</p>
+      </div>
+      <div class="project-modal-actions">
+        <span class="project-modal-counter" id="project-modal-counter">1 / 1</span>
+        <button class="project-modal-close" type="button" data-modal-close aria-label="Close photo gallery">✕</button>
+      </div>
+    </div>
+    <div class="project-modal-body">
+      <button class="project-modal-nav prev" type="button" id="project-modal-prev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="project-modal-stage" id="project-modal-stage">
+        <img id="project-modal-img" src="" alt="Project photo">
+      </div>
+      <button class="project-modal-nav next" type="button" id="project-modal-next" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    <div class="project-modal-footer">
+      <div class="project-modal-thumbs" id="project-modal-thumbs"></div>
+    </div>
+  </div>
+</div>
+
 <script src="assets/js/search-data.js"></script>
 <script src="assets/js/main.js"></script>
 </body>

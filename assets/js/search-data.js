@@ -60,10 +60,76 @@ window.PEMCO_SEARCH = [
     excerpt: "Building renovation, interior upgrades, and maintenance for offices, hotels, and industrial facilities."
   },
   {
-    title: "Projects",
+    title: "Projects Portfolio",
     url: "projects.html",
-    keywords: "projects portfolio thilawa power plant komatsu yadana mpt sakura sunflower factory",
+    keywords: "projects portfolio thilawa power plant komatsu yadana marina bay muse airport",
     excerpt: "Selected PEMCO projects across power, industrial, commercial, and infrastructure."
+  },
+  {
+    title: "230kV Thilawa Substation",
+    url: "projects.html",
+    keywords: "230kv thilawa substation civil electrical mechanical power infrastructure",
+    excerpt: "Civil, electrical & mechanical works for 230kV Thilawa Substation."
+  },
+  {
+    title: "Thilawa Port Extension",
+    url: "projects.html",
+    keywords: "thilawa port extension mechanical electrical installation maritime infrastructure",
+    excerpt: "Mechanical & electrical installation for Thilawa Port Extension."
+  },
+  {
+    title: "Water & Wastewater Treatment Plants",
+    url: "projects.html",
+    keywords: "water purification plant sewage wastewater treatment thilawa sez",
+    excerpt: "Thilawa SEZ water and wastewater treatment facilities."
+  },
+  {
+    title: "50MW Ywama Power Plant",
+    url: "projects.html",
+    keywords: "50mw ywama power plant civil mep generation gas turbine",
+    excerpt: "Power plant civil & M&E works for 50MW Ywama Power Plant."
+  },
+  {
+    title: "ACMV System Work at Marina Bay",
+    url: "projects.html",
+    keywords: "acmv marina bay hvac air conditioning mechanical ventilation",
+    excerpt: "Air-conditioning & mechanical ventilation system work at Marina Bay."
+  },
+  {
+    title: "Asia Optical Steel Structure Erection",
+    url: "projects.html",
+    keywords: "asia optical steel structure fabrication erection factory",
+    excerpt: "Structural steel fabrication & erection for Asia Optical."
+  },
+  {
+    title: "Komatsu Remanufacturing",
+    url: "projects.html",
+    keywords: "komatsu remanufacturing industrial facility mep packages",
+    excerpt: "Industrial facility M&E packages for Komatsu Remanufacturing."
+  },
+  {
+    title: "MUSE Shopping Mall",
+    url: "projects.html",
+    keywords: "muse shopping mall commercial mep interiors retail",
+    excerpt: "Commercial M&E & interiors for MUSE Shopping Mall."
+  },
+  {
+    title: "Myanmar Kaido",
+    url: "projects.html",
+    keywords: "myanmar kaido factory facility construction civil",
+    excerpt: "Factory and facility construction for Myanmar Kaido."
+  },
+  {
+    title: "Nay Pyi Daw Airport",
+    url: "projects.html",
+    keywords: "nay pyi daw airport aviation infrastructure terminal works",
+    excerpt: "Airport infrastructure works at Nay Pyi Daw Airport."
+  },
+  {
+    title: "Yadana Platform",
+    url: "projects.html",
+    keywords: "yadana platform offshore oil gas energy platform works",
+    excerpt: "Offshore oil & gas platform works for Yadana Platform."
   },
   {
     title: "Clients & Partners",

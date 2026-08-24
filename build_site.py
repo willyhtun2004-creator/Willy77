@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate PEMCO static HTML pages with shared chrome."""
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -117,6 +118,37 @@ FOOTER = """
     <span>Yangon · Fabrication Shop, North Dagon</span>
   </div>
 </footer>
+
+<div class="project-modal" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project photo gallery">
+  <div class="project-modal-backdrop" data-modal-close></div>
+  <div class="project-modal-dialog">
+    <div class="project-modal-header">
+      <div class="project-modal-info">
+        <h3 id="project-modal-title">Project Title</h3>
+        <p id="project-modal-desc">Project Description</p>
+      </div>
+      <div class="project-modal-actions">
+        <span class="project-modal-counter" id="project-modal-counter">1 / 1</span>
+        <button class="project-modal-close" type="button" data-modal-close aria-label="Close photo gallery">✕</button>
+      </div>
+    </div>
+    <div class="project-modal-body">
+      <button class="project-modal-nav prev" type="button" id="project-modal-prev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="project-modal-stage" id="project-modal-stage">
+        <img id="project-modal-img" src="" alt="Project photo">
+      </div>
+      <button class="project-modal-nav next" type="button" id="project-modal-next" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    <div class="project-modal-footer">
+      <div class="project-modal-thumbs" id="project-modal-thumbs"></div>
+    </div>
+  </div>
+</div>
+
 <script src="assets/js/search-data.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
@@ -190,6 +222,174 @@ def clients_marquee(section_id="clients", heading="Selected clients & partners")
 
 def page(title, description, active, body):
     return HEADER.format(title=title, description=description, **chrome(active)) + body + FOOTER
+
+
+PROJECTS_DATA = [
+    {
+        "id": "thilawa-substation",
+        "title": "230kV Thilawa Substation",
+        "desc": "Civil, electrical & mechanical works",
+        "tag": "Power & Infrastructure",
+        "cover": "assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/01.jpg",
+        "images": [
+            "assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/01.jpg",
+            "assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/02.png",
+            "assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/03.jpg",
+            "assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/04.png",
+        ],
+    },
+    {
+        "id": "thilawa-port",
+        "title": "Thilawa Port Extension",
+        "desc": "Mechanical & electrical installation",
+        "tag": "Port Infrastructure",
+        "cover": "assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/01.jpg",
+        "images": [
+            "assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/01.jpg",
+            "assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/02.jpg",
+            "assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/03.jpg",
+            "assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/04.jpg",
+            "assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/05.jpg",
+            "assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/06.jpg",
+        ],
+    },
+    {
+        "id": "water-purification",
+        "title": "Water & Wastewater Plants",
+        "desc": "Thilawa SEZ treatment facilities",
+        "tag": "Water & Environmental",
+        "cover": "assets/images/projects/Thilawa-Subsation/Water-Purification-Plant%20%26%20Sewage-Water-Treatment/01.png",
+        "images": [
+            "assets/images/projects/Thilawa-Subsation/Water-Purification-Plant%20%26%20Sewage-Water-Treatment/01.png",
+            "assets/images/projects/Thilawa-Subsation/Water-Purification-Plant%20%26%20Sewage-Water-Treatment/02.png",
+            "assets/images/projects/Thilawa-Subsation/Water-Purification-Plant%20%26%20Sewage-Water-Treatment/03.png",
+            "assets/images/projects/Thilawa-Subsation/Water-Purification-Plant%20%26%20Sewage-Water-Treatment/04.png",
+            "assets/images/projects/Thilawa-Subsation/Water-Purification-Plant%20%26%20Sewage-Water-Treatment/05.png",
+        ],
+    },
+    {
+        "id": "ywama-power-plant",
+        "title": "50MW Ywama Power Plant",
+        "desc": "Power plant civil & M&E works",
+        "tag": "Power Generation",
+        "cover": "assets/images/projects/50MW-Ywama-Power-Plant/01.png",
+        "images": [
+            "assets/images/projects/50MW-Ywama-Power-Plant/01.png",
+            "assets/images/projects/50MW-Ywama-Power-Plant/02.png",
+            "assets/images/projects/50MW-Ywama-Power-Plant/03.png",
+            "assets/images/projects/50MW-Ywama-Power-Plant/04.png",
+            "assets/images/projects/50MW-Ywama-Power-Plant/05.png",
+        ],
+    },
+    {
+        "id": "marina-bay-acmv",
+        "title": "ACMV System Work at Marina Bay",
+        "desc": "Air-conditioning & mechanical ventilation",
+        "tag": "Mechanical & HVAC",
+        "cover": "assets/images/projects/ACMV-System-Work-at-Marina-Bay/01.jpg",
+        "images": [
+            "assets/images/projects/ACMV-System-Work-at-Marina-Bay/01.jpg",
+            "assets/images/projects/ACMV-System-Work-at-Marina-Bay/02.jpg",
+            "assets/images/projects/ACMV-System-Work-at-Marina-Bay/03.jpg",
+            "assets/images/projects/ACMV-System-Work-at-Marina-Bay/04.jpg",
+            "assets/images/projects/ACMV-System-Work-at-Marina-Bay/05.jpg",
+            "assets/images/projects/ACMV-System-Work-at-Marina-Bay/06.jpg",
+        ],
+    },
+    {
+        "id": "asia-optical",
+        "title": "Asia Optical Steel Structure Erection",
+        "desc": "Structural steel fabrication & erection",
+        "tag": "Structural Steel",
+        "cover": "assets/images/projects/Asia-Optical-Steel-Structure-Erection%20/01.jpg",
+        "images": [
+            "assets/images/projects/Asia-Optical-Steel-Structure-Erection%20/01.jpg",
+            "assets/images/projects/Asia-Optical-Steel-Structure-Erection%20/02.jpg",
+            "assets/images/projects/Asia-Optical-Steel-Structure-Erection%20/03.jpg",
+            "assets/images/projects/Asia-Optical-Steel-Structure-Erection%20/04.jpg",
+            "assets/images/projects/Asia-Optical-Steel-Structure-Erection%20/05.jpg",
+        ],
+    },
+    {
+        "id": "komatsu-reman",
+        "title": "Komatsu Remanufacturing",
+        "desc": "Industrial facility M&E packages",
+        "tag": "Industrial Facility",
+        "cover": "assets/images/projects/Komat%27su-Remanufacturing/01.png",
+        "images": [
+            "assets/images/projects/Komat%27su-Remanufacturing/01.png",
+            "assets/images/projects/Komat%27su-Remanufacturing/02.png",
+            "assets/images/projects/Komat%27su-Remanufacturing/03.jpg",
+            "assets/images/projects/Komat%27su-Remanufacturing/04.jpg",
+        ],
+    },
+    {
+        "id": "muse-mall",
+        "title": "MUSE Shopping Mall",
+        "desc": "Commercial M&E & interiors",
+        "tag": "Commercial",
+        "cover": "assets/images/projects/MUSE-Shopping-Mall/01.jpg",
+        "images": [
+            "assets/images/projects/MUSE-Shopping-Mall/01.jpg",
+            "assets/images/projects/MUSE-Shopping-Mall/02.jpg",
+            "assets/images/projects/MUSE-Shopping-Mall/03.jpg",
+            "assets/images/projects/MUSE-Shopping-Mall/04.jpg",
+            "assets/images/projects/MUSE-Shopping-Mall/05.jpg",
+        ],
+    },
+    {
+        "id": "myanmar-kaido",
+        "title": "Myanmar Kaido",
+        "desc": "Factory and facility construction",
+        "tag": "Civil & Construction",
+        "cover": "assets/images/projects/Myanmar-kaido/01.jpg",
+        "images": [
+            "assets/images/projects/Myanmar-kaido/01.jpg",
+            "assets/images/projects/Myanmar-kaido/02.jpg",
+        ],
+    },
+    {
+        "id": "naypyidaw-airport",
+        "title": "Nay Pyi Daw Airport",
+        "desc": "Airport infrastructure works",
+        "tag": "Aviation & Infrastructure",
+        "cover": "assets/images/projects/Nay-Pyi-Daw-Airport/01.jpg",
+        "images": [
+            "assets/images/projects/Nay-Pyi-Daw-Airport/01.jpg",
+            "assets/images/projects/Nay-Pyi-Daw-Airport/02.png",
+            "assets/images/projects/Nay-Pyi-Daw-Airport/03.png",
+            "assets/images/projects/Nay-Pyi-Daw-Airport/04.png",
+        ],
+    },
+    {
+        "id": "yadana-platform",
+        "title": "Yadana Platform",
+        "desc": "Offshore oil & gas platform works",
+        "tag": "Energy & Offshore",
+        "cover": "assets/images/projects/Yadana-Platform/01.jpg",
+        "images": [
+            "assets/images/projects/Yadana-Platform/01.jpg",
+            "assets/images/projects/Yadana-Platform/02.jpg",
+            "assets/images/projects/Yadana-Platform/03.jpg",
+            "assets/images/projects/Yadana-Platform/04.jpg",
+        ],
+    },
+]
+
+
+def render_project_tile(p, extra_class=""):
+    title = p["title"]
+    desc = p["desc"]
+    cover = p["cover"]
+    images = p["images"]
+    img_json = json.dumps(images).replace('"', "&quot;")
+    count = len(images)
+    count_label = f"{count} Photos" if count > 1 else "1 Photo"
+    return f"""                <figure class="project-tile {extra_class}" tabindex="0" role="button" aria-label="View {title} gallery ({count_label})" data-gallery-title="{title}" data-gallery-desc="{desc}" data-gallery-images="{img_json}">
+                  <img src="{cover}" alt="{title}" loading="lazy">
+                  <span class="project-tile-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg> {count_label}</span>
+                  <figcaption><h3>{title}</h3><p>{desc}</p></figcaption>
+                </figure>"""
 
 
 PAGES = {}
@@ -307,54 +507,16 @@ PAGES["index.html"] = page(
           <div class="project-carousel-track">
             <div class="project-carousel-slide">
               <div class="project-grid">
-                <figure class="project-tile">
-                  <img src="assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/01.jpg" alt="230kV Thilawa Substation">
-                  <figcaption><h3>230kV Thilawa Substation</h3><p>Civil, electrical &amp; mechanical works</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/Thilawa-Subsation/Thilawa-port-Extension/01.jpg" alt="Thilawa Port Extension">
-                  <figcaption><h3>Thilawa Port Extension</h3><p>Mechanical &amp; electrical installation</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/Thilawa-Subsation/Water-Purification-Plant%20%26%20Sewage-Water-Treatment/01.png" alt="Water purification and sewage treatment plant">
-                  <figcaption><h3>Water &amp; Wastewater Plants</h3><p>Thilawa SEZ treatment facilities</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/50MW-Ywama-Power-Plant/01.png" alt="50MW Ywama Power Plant">
-                  <figcaption><h3>50MW Ywama Power Plant</h3><p>Power plant civil &amp; M&amp;E works</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/ACMV-System-Work-at-Marina-Bay/01.jpg" alt="ACMV system work at Marina Bay">
-                  <figcaption><h3>ACMV System Work at Marina Bay</h3><p>Air-conditioning &amp; mechanical ventilation</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/Asia-Optical-Steel-Structure-Erection%20/01.jpg" alt="Asia Optical steel structure erection">
-                  <figcaption><h3>Asia Optical Steel Structure Erection</h3><p>Structural steel fabrication &amp; erection</p></figcaption>
-                </figure>
+"""
+    + "\n".join(render_project_tile(p) for p in PROJECTS_DATA[:6])
+    + """
               </div>
             </div>
             <div class="project-carousel-slide">
               <div class="project-grid">
-                <figure class="project-tile">
-                  <img src="assets/images/projects/Komat%27su-Remanufacturing/01.png" alt="Komatsu remanufacturing facility">
-                  <figcaption><h3>Komatsu Remanufacturing</h3><p>Industrial facility M&amp;E packages</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/MUSE-Shopping-Mall/01.jpg" alt="MUSE Shopping Mall">
-                  <figcaption><h3>MUSE Shopping Mall</h3><p>Commercial M&amp;E &amp; interiors</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/Myanmar-kaido/01.jpg" alt="Myanmar Kaido industrial build">
-                  <figcaption><h3>Myanmar Kaido</h3><p>Factory and facility construction</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/Nay-Pyi-Daw-Airport/01.jpg" alt="Nay Pyi Daw Airport">
-                  <figcaption><h3>Nay Pyi Daw Airport</h3><p>Airport infrastructure works</p></figcaption>
-                </figure>
-                <figure class="project-tile">
-                  <img src="assets/images/projects/Yadana-Platform/01.jpg" alt="Yadana Platform">
-                  <figcaption><h3>Yadana Platform</h3><p>Oil &amp; gas platform works</p></figcaption>
-                </figure>
+"""
+    + "\n".join(render_project_tile(p) for p in PROJECTS_DATA[6:])
+    + """
               </div>
             </div>
           </div>
@@ -903,7 +1065,7 @@ PAGES["projects.html"] = page(
     "projects",
     """
 <main id="main">
-  <section class="page-hero" style="--page-bg:url('assets/images/project-02.jpg')">
+  <section class="page-hero" style="--page-bg:url('assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/01.jpg')">
     <div class="container">
       <span class="eyebrow" style="color:#ffb3bd">Projects</span>
       <h1>Selected works from PEMCO’s portfolio</h1>
@@ -916,17 +1078,9 @@ PAGES["projects.html"] = page(
   <section class="section">
     <div class="container">
       <div class="project-grid">
-        <figure class="project-tile reveal"><img src="assets/images/project-02.jpg" alt="Thilawa substation"><figcaption><h3>230kV Thilawa Substation</h3><p>Civil, electrical &amp; mechanical</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-03.jpg" alt="Thilawa port"><figcaption><h3>Thilawa Port Extension</h3><p>Mechanical &amp; electrical works</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-01.jpg" alt="Industrial project"><figcaption><h3>Myanmar Kaido / Industrial Builds</h3><p>Factory and facility construction</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-04.jpg" alt="Youngin project"><figcaption><h3>Myanmar Youngin Projects</h3><p>Office and factory construction</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-05.jpg" alt="Interior project"><figcaption><h3>Hintha / Hotel / Office Interiors</h3><p>Interior, electrical, air-con packages</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-07.jpg" alt="Warehouse project"><figcaption><h3>Daizen &amp; SEZ Warehouses</h3><p>Industrial warehouse delivery</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-08.jpg" alt="Water plant"><figcaption><h3>Water &amp; Wastewater Plants</h3><p>Thilawa SEZ treatment facilities</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-09.jpg" alt="School construction"><figcaption><h3>School &amp; Community Builds</h3><p>Education and social infrastructure</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-10.jpg" alt="Power plant"><figcaption><h3>Ywama / Tharketa Power Works</h3><p>Power plant civil &amp; M&amp;E</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-11.jpg" alt="Factory steel works"><figcaption><h3>Sunflower / FAMOSO Factories</h3><p>Steel, M&amp;E, plumbing packages</p></figcaption></figure>
-        <figure class="project-tile reveal"><img src="assets/images/project-12.jpg" alt="Commercial renovation"><figcaption><h3>MPT &amp; Commercial Renovations</h3><p>Call centers and office upgrades</p></figcaption></figure>
+"""
+    + "\n".join(render_project_tile(p, "reveal") for p in PROJECTS_DATA)
+    + """
       </div>
       <div class="cta-band reveal" style="margin-top:2rem">
         <div>
