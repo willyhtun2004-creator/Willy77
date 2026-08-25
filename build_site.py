@@ -15,7 +15,7 @@ HEADER = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/styles.css?v=20260825b">
 </head>
 <body>
 <a class="sr-only" href="#main">Skip to content</a>
@@ -150,7 +150,7 @@ FOOTER = """
 </div>
 
 <script src="assets/js/search-data.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=20260825"></script>
 </body>
 </html>
 """
@@ -384,11 +384,8 @@ def render_project_tile(p, extra_class=""):
     cover = p["cover"]
     images = p["images"]
     img_json = json.dumps(images).replace('"', "&quot;")
-    count = len(images)
-    count_label = f"{count} Photos" if count > 1 else "1 Photo"
-    return f"""                <figure class="project-tile {extra_class}" tabindex="0" role="button" aria-label="View {title} gallery ({count_label})" data-gallery-title="{title}" data-gallery-desc="{desc}" data-gallery-images="{img_json}">
+    return f"""                <figure class="project-tile {extra_class}" tabindex="0" role="button" aria-label="View {title} gallery" data-gallery-title="{title}" data-gallery-desc="{desc}" data-gallery-images="{img_json}">
                   <img src="{cover}" alt="{title}" loading="lazy">
-                  <span class="project-tile-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg> {count_label}</span>
                   <figcaption><h3>{title}</h3><p>{desc}</p></figcaption>
                 </figure>"""
 
@@ -518,6 +515,9 @@ PAGES["index.html"] = page(
 """
     + "\n".join(render_project_tile(p) for p in PROJECTS_DATA[6:])
     + """
+                <a class="project-tile project-tile-more" href="projects.html" aria-label="View project portfolio">
+                  <span class="project-tile-more-label">More</span>
+                </a>
               </div>
             </div>
           </div>
@@ -633,7 +633,7 @@ PAGES["about.html"] = page(
     "about",
     f"""
 <main id="main">
-  <section class="page-hero" style="--page-bg:url('assets/images/office.jpg')">
+  <section class="page-hero" style="--page-bg:url('../images/office.jpg')">
     <div class="container">
       <span class="eyebrow" style="color:#ffb3bd">About</span>
       <h1>Progressive Engineer Myanmar Company</h1>
@@ -721,7 +721,7 @@ def gallery_html(folder, count=5, captions=None, layout="gallery-stack"):
 """
 
 
-def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_title, side_points, gallery_folder, gallery_captions=None, extra="", gallery_layout="gallery-stack"):
+def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_title, side_points, gallery_folder, gallery_captions=None, extra="", gallery_layout="gallery-stack", include_gallery=True):
     lis = "\n".join(
         f'<li id="{anchor}"><b>{code}</b><span><strong>{name}</strong><br>{blurb}</span></li>'
         for code, anchor, name, blurb in items
@@ -729,13 +729,20 @@ def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_tit
     side = "\n".join(f"<li>{p}</li>" for p in side_points)
     # Keep showcase balanced: 1 featured + even pairs
     captions = list(gallery_captions or [])[:5]
+    hero_bg = hero_img.replace("assets/images/", "../images/", 1)
+    hero_open = (
+        '<section class="page-hero page-hero-plain">'
+        if not hero_img
+        else f'<section class="page-hero" style="--page-bg:url(\'{hero_bg}\')">'
+    )
+    gallery = gallery_html(gallery_folder, count=5, captions=captions, layout=gallery_layout) if include_gallery else ""
     return page(
         title,
         desc,
         "services",
         f"""
 <main id="main">
-  <section class="page-hero" style="--page-bg:url('{hero_img}')">
+  {hero_open}
     <div class="container">
       <span class="eyebrow" style="color:#ffb3bd">{eyebrow}</span>
       <h1>{heading}</h1>
@@ -758,7 +765,7 @@ def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_tit
       </aside>
     </div>
   </section>
-  {gallery_html(gallery_folder, count=5, captions=captions, layout=gallery_layout)}
+  {gallery}
 </main>
 """,
     )
@@ -920,7 +927,8 @@ PAGES["quantity-surveyor.html"] = service_page(
         "BOQ preparation references",
         "Cost planning packages",
         "Project commercial support",
-    ],
+        ],
+    include_gallery=False,
 )
 
 PAGES["installation-repairs.html"] = service_page(
@@ -950,13 +958,14 @@ PAGES["installation-repairs.html"] = service_page(
         "Warehouse system installation",
         "Commercial M&E fit-out",
         "Industrial commissioning support",
-    ],
+        ],
+    include_gallery=False,
 )
 
 PAGES["renovation.html"] = service_page(
     "Renovation | PEMCO",
     "PEMCO building renovation, interior upgrades, and maintenance for offices, hotels, and industrial facilities.",
-    "assets/images/service-reno.jpg",
+    "assets/images/services-reno.jpg",
     "Renovation",
     "Upgrade existing assets with coordinated trades",
     "Renovation and maintenance packages that combine civil, interior, electrical, and mechanical works for live or phased facilities.",
@@ -983,7 +992,7 @@ PAGES["services.html"] = page(
     "services",
     """
 <main id="main">
-  <section class="page-hero" style="--page-bg:url('assets/images/project-04.jpg')">
+  <section class="page-hero" style="--page-bg:url('../images/project-04.jpg')">
     <div class="container">
       <span class="eyebrow" style="color:#ffb3bd">Services</span>
       <h1>Hire by discipline or delivery need</h1>
@@ -998,7 +1007,6 @@ PAGES["services.html"] = page(
       </div>
       <div class="service-board">
         <a class="service-card reveal" href="civil.html">
-          <img src="assets/images/service-civil.jpg" alt="">
           <div>
             <h3>Civil Engineering</h3>
             <p>Factories, buildings, roads, survey, structural design, turnkey civil works.</p>
@@ -1006,7 +1014,6 @@ PAGES["services.html"] = page(
           </div>
         </a>
         <a class="service-card reveal" href="electrical.html">
-          <img src="assets/images/service-electrical.jpg" alt="">
           <div>
             <h3>Electrical Engineering</h3>
             <p>Power distribution, lighting, earthing, automation, ELV, generators, maintenance.</p>
@@ -1014,7 +1021,6 @@ PAGES["services.html"] = page(
           </div>
         </a>
         <a class="service-card reveal" href="mechanical.html">
-          <img src="assets/images/service-mechanical.jpg" alt="">
           <div>
             <h3>Mechanical Engineering</h3>
             <p>Steel, tanks, piping, HVAC, plumbing, machine setting, power plant MEP.</p>
@@ -1022,7 +1028,6 @@ PAGES["services.html"] = page(
           </div>
         </a>
         <a class="service-card reveal" href="design-drawing.html">
-          <img src="assets/images/service-design.jpg" alt="">
           <div>
             <h3>Design &amp; Drawing Services</h3>
             <p>Outsourcing for international companies — contact email for quotes.</p>
@@ -1030,7 +1035,6 @@ PAGES["services.html"] = page(
           </div>
         </a>
         <a class="service-card reveal" href="quantity-surveyor.html">
-          <img src="assets/images/service-qs.jpg" alt="">
           <div>
             <h3>Quantity Surveyor Services</h3>
             <p>Measurement, BOQ, cost estimation, and tender commercial support.</p>
@@ -1038,7 +1042,6 @@ PAGES["services.html"] = page(
           </div>
         </a>
         <a class="service-card reveal" href="installation-repairs.html">
-          <img src="assets/images/service-install.jpg" alt="">
           <div>
             <h3>Installation &amp; Repairs</h3>
             <p>Full mechanical &amp; electrical installation list with maintenance capability.</p>
@@ -1046,7 +1049,6 @@ PAGES["services.html"] = page(
           </div>
         </a>
         <a class="service-card reveal" href="renovation.html">
-          <img src="assets/images/service-reno.jpg" alt="">
           <div>
             <h3>Renovation</h3>
             <p>Building renovation, interiors, and coordinated M&amp;E upgrades.</p>
@@ -1066,7 +1068,7 @@ PAGES["projects.html"] = page(
     "projects",
     """
 <main id="main">
-  <section class="page-hero" style="--page-bg:url('assets/images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/01.jpg')">
+  <section class="page-hero" style="--page-bg:url('../images/projects/Thilawa-Subsation/230kV-Thilawa-Substation/01.jpg')">
     <div class="container">
       <span class="eyebrow" style="color:#ffb3bd">Projects</span>
       <h1>Selected works from PEMCO’s portfolio</h1>
@@ -1102,7 +1104,7 @@ PAGES["contact.html"] = page(
     "contact",
     """
 <main id="main">
-  <section class="page-hero" style="--page-bg:url('assets/images/office.jpg')">
+  <section class="page-hero" style="--page-bg:url('../images/office.jpg')">
     <div class="container">
       <span class="eyebrow" style="color:#ffb3bd">Contact</span>
       <h1>Tell us what you need built or drawn</h1>

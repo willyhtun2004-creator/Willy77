@@ -403,8 +403,9 @@
     );
   }
 
-  // Bind project tiles
+  // Bind project tiles (skip portfolio links such as the Home "More" tile)
   document.querySelectorAll(".project-tile").forEach((tile) => {
+    if (tile.matches("a, .project-tile-more")) return;
     tile.addEventListener("click", () => openProjectGallery(tile));
     tile.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {

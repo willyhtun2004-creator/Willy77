@@ -654,8 +654,8 @@ ul {
 
 .section-dark {
   background:
-    linear-gradient(135deg, rgba(7, 22, 41, .94), rgba(12, 35, 64, .9)),
-    center / cover no-repeat url("../images/project-02.jpg");
+    linear-gradient(135deg, rgba(7, 22, 41, .78), rgba(12, 35, 64, .68)),
+    center / cover no-repeat url("../images/track-record-bg.jpg");
   color: var(--white);
 }
 
@@ -899,14 +899,18 @@ ul {
 
 .service-card {
   display: grid;
-  grid-template-rows: 180px 1fr;
+  grid-template-rows: 4px 1fr;
   gap: 0;
   padding: 0;
   background: var(--white);
   border: 1px solid var(--line);
   overflow: hidden;
   transition: border-color .2s ease, transform .2s var(--ease);
-  min-height: 320px;
+}
+
+.service-card::before {
+  content: "";
+  background: var(--red);
 }
 
 .service-card:hover {
@@ -1033,6 +1037,33 @@ ul {
 .project-tile p {
   color: rgba(255, 255, 255, .78);
   font-size: .88rem;
+}
+
+.project-tile-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--white);
+  background: rgba(7, 22, 41, .42);
+  border: 1px solid rgba(255, 255, 255, .22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+
+.project-tile-more:hover,
+.project-tile-more:focus-visible {
+  background: rgba(200, 16, 46, .9);
+  border-color: var(--red);
+  transform: translateY(-2px);
+}
+
+.project-tile-more-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: .08em;
 }
 
 .project-carousel {
@@ -1528,6 +1559,10 @@ ul {
   color: var(--white);
   overflow: hidden;
   position: relative;
+}
+
+.page-hero-plain {
+  background: linear-gradient(120deg, #071629, #0c2340);
 }
 
 .page-hero .eyebrow {
@@ -2068,11 +2103,7 @@ ul {
   }
 
   .service-card {
-    grid-template-rows: 160px 1fr;
-  }
-
-  .service-card img {
-    height: 160px;
+    grid-template-rows: 4px 1fr;
   }
 
   .cta-band {
@@ -2144,11 +2175,7 @@ ul {
   }
 
   .service-card {
-    grid-template-rows: 200px 1fr;
-  }
-
-  .service-card img {
-    height: 200px;
+    grid-template-rows: 4px 1fr;
   }
 
   .split-media {
