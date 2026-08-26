@@ -515,9 +515,9 @@ PAGES["index.html"] = page(
 """
     + "\n".join(render_project_tile(p) for p in PROJECTS_DATA[6:])
     + """
-                <a class="project-tile project-tile-more" href="projects.html" aria-label="View project portfolio">
+                <div class="project-tile project-tile-more" aria-hidden="true">
                   <span class="project-tile-more-label">More</span>
-                </a>
+                </div>
               </div>
             </div>
           </div>
