@@ -17,8 +17,8 @@
   --radius: 4px;
   --ease: cubic-bezier(.22, 1, .36, 1);
   --shadow: 0 18px 40px rgba(7, 22, 41, .14);
-  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
-  --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-display: "Montserrat", "Segoe UI", "Helvetica Neue", sans-serif;
+  --font-body: "Montserrat", "Segoe UI", "Helvetica Neue", sans-serif;
 }
 
 *,
