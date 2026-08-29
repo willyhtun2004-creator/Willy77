@@ -415,42 +415,84 @@
     });
   });
 
-  // Contact form → send to pemco.myanmar@gmail.com via FormSubmit
+  // Contact form → pemco.myanmar@gmail.com (FormSubmit + mailto fallback)
   const contactForm = document.querySelector("#contact-form");
   if (contactForm) {
+    const CONTACT_EMAIL = "pemco.myanmar@gmail.com";
     const submitBtn = document.querySelector("#contact-submit");
     const statusEl = document.querySelector("#contact-form-status");
+
+    function setStatus(type, text) {
+      if (!statusEl) return;
+      statusEl.hidden = false;
+      statusEl.className = "form-status" + (type ? ` is-${type}` : "");
+      statusEl.textContent = text;
+    }
+
+    function openMailtoFallback(values) {
+      const subject = encodeURIComponent("PEMCO website enquiry");
+      const body = encodeURIComponent(
+        [
+          `Name: ${values.name || ""}`,
+          `Company: ${values.company || ""}`,
+          `Email: ${values.email || ""}`,
+          `Service: ${values.service || ""}`,
+          "",
+          "Project details:",
+          values.message || "",
+        ].join("\n")
+      );
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    }
+
     contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!statusEl || !submitBtn) return;
+      if (!submitBtn) return;
 
-      statusEl.hidden = false;
-      statusEl.className = "form-status";
-      statusEl.textContent = "Sending…";
+      if (!contactForm.reportValidity()) return;
+
+      const formData = new FormData(contactForm);
+      const values = Object.fromEntries(formData.entries());
+      if (values._gotcha) return; // honeypot filled → ignore bots
+
+      formData.set("_replyto", values.email || "");
+      formData.delete("_gotcha");
+
+      setStatus("", "Sending…");
       submitBtn.disabled = true;
 
-      const data = new FormData(contactForm);
-      const payload = Object.fromEntries(data.entries());
-
       try {
-        const res = await fetch("https://formsubmit.co/ajax/pemco.myanmar@gmail.com", {
+        const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(payload),
+          headers: { Accept: "application/json" },
+          body: formData,
         });
         const result = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(result.message || "Send failed");
+        const ok = String(result.success).toLowerCase() === "true";
+        const message = String(result.message || "");
 
-        statusEl.className = "form-status is-success";
-        statusEl.textContent = "Message sent. PEMCO will reply to your email shortly.";
-        contactForm.reset();
+        if (ok) {
+          setStatus("success", "Message sent to pemco.myanmar@gmail.com. We will reply soon.");
+          contactForm.reset();
+          return;
+        }
+
+        if (/activation/i.test(message)) {
+          setStatus(
+            "error",
+            "Almost ready: open pemco.myanmar@gmail.com, click FormSubmit’s Activate Form link, then send again. Opening your email app as a backup…"
+          );
+          setTimeout(() => openMailtoFallback(values), 1200);
+          return;
+        }
+
+        throw new Error(message || "Send failed");
       } catch (err) {
-        statusEl.className = "form-status is-error";
-        statusEl.textContent =
-          "Could not send right now. Please email pemco.myanmar@gmail.com directly.";
+        setStatus(
+          "error",
+          "Direct send is unavailable right now. Opening your email app to send to pemco.myanmar@gmail.com…"
+        );
+        setTimeout(() => openMailtoFallback(values), 600);
       } finally {
         submitBtn.disabled = false;
       }

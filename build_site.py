@@ -150,7 +150,7 @@ FOOTER = """
 </div>
 
 <script src="assets/js/search-data.js"></script>
-<script src="assets/js/main.js?v=20260829"></script>
+<script src="assets/js/main.js?v=20260829b"></script>
 </body>
 </html>
 """
@@ -298,6 +298,20 @@ PROJECTS_DATA = [
         ],
     },
     {
+        "id": "tgmm-yangon-office",
+        "title": "TGMM Yangon Office",
+        "desc": "Turnkey fit-out — civil, electrical, mechanical & HVAC",
+        "tag": "Commercial Fit-Out",
+        "cover": "assets/images/projects/TGMM-Yangon-office/01.png",
+        "images": [
+            "assets/images/projects/TGMM-Yangon-office/01.png",
+            "assets/images/projects/TGMM-Yangon-office/02.png",
+            "assets/images/projects/TGMM-Yangon-office/03.png",
+            "assets/images/projects/TGMM-Yangon-office/04.png",
+            "assets/images/projects/TGMM-Yangon-office/05.png",
+        ],
+    },
+    {
         "id": "asia-optical",
         "title": "Asia Optical Steel Structure Erection",
         "desc": "Structural steel fabrication & erection",
@@ -359,7 +373,6 @@ PROJECTS_DATA = [
             "assets/images/projects/Nay-Pyi-Daw-Airport/01.jpg",
             "assets/images/projects/Nay-Pyi-Daw-Airport/02.png",
             "assets/images/projects/Nay-Pyi-Daw-Airport/03.png",
-            "assets/images/projects/Nay-Pyi-Daw-Airport/04.png",
         ],
     },
     {
@@ -446,7 +459,7 @@ PAGES["index.html"] = page(
           </div>
         </a>
         <a class="capability reveal" href="design-drawing.html">
-          <img src="assets/images/service-design.jpg" alt="Design and drawing sample">
+          <img src="assets/images/service-design.png" alt="Design and drawing sample">
           <div class="capability-body">
             <span>Outsourcing</span>
             <h3>Design &amp; Drawing</h3>
@@ -454,7 +467,7 @@ PAGES["index.html"] = page(
           </div>
         </a>
         <a class="capability reveal" href="quantity-surveyor.html">
-          <img src="assets/images/service-qs.jpg" alt="Quantity surveying documentation">
+          <img src="assets/images/service-qs.jpeg" alt="Quantity surveying documentation">
           <div class="capability-body">
             <span>Commercial</span>
             <h3>Quantity Surveyor</h3>
@@ -514,10 +527,16 @@ PAGES["index.html"] = page(
               <div class="project-grid">
 """
     + "\n".join(render_project_tile(p) for p in PROJECTS_DATA[6:])
-    + """
+    + (
+        """
                 <div class="project-tile project-tile-more" aria-hidden="true">
                   <span class="project-tile-more-label">More</span>
                 </div>
+"""
+        if len(PROJECTS_DATA[6:]) < 6
+        else ""
+    )
+    + """
               </div>
             </div>
           </div>
@@ -553,16 +572,16 @@ PAGES["index.html"] = page(
       </div>
       <div class="drawing-grid reveal">
         <figure>
-          <img src="assets/images/drawing-01.jpg" alt="Sample tender drawing layout">
-          <figcaption>Sample tender drawing set</figcaption>
+          <img src="assets/images/drawing-01.png" alt="Space Planning &amp; Layout">
+          <figcaption>Space Planning &amp; Layout</figcaption>
         </figure>
         <figure>
-          <img src="assets/images/drawing-02.jpg" alt="Sample interior layout drawing">
-          <figcaption>Layout &amp; detailing support</figcaption>
+          <img src="assets/images/drawing-02.png" alt="Detailed Floor Plans">
+          <figcaption>Detailed Floor Plans</figcaption>
         </figure>
         <figure>
-          <img src="assets/images/drawing-03.jpg" alt="Sample elevation drawing">
-          <figcaption>Elevation &amp; joinery packages</figcaption>
+          <img src="assets/images/drawing-03.png" alt="Detailed Design Drawings">
+          <figcaption>Detailed Design Drawings</figcaption>
         </figure>
       </div>
       <div style="margin-top:1.5rem" class="reveal">
@@ -881,7 +900,7 @@ PAGES["civil.html"] = service_page(
 PAGES["design-drawing.html"] = service_page(
     "Design & Drawing Services | PEMCO",
     "PEMCO design and drawing outsourcing for international companies — space planning, floor plans, detailed design, component, and interior fixture drawings. Contact for quotes.",
-    "assets/images/service-design.jpg",
+    "assets/images/service-design.png",
     "Design & Drawing Services",
     "Outsourced drawings for international project teams",
     "PEMCO prepares design and drawing packages from space planning through construction detailing. International companies can contact us by email for quotations.",
@@ -916,7 +935,7 @@ PAGES["design-drawing.html"] = service_page(
 PAGES["quantity-surveyor.html"] = service_page(
     "Quantity Surveyor Services | PEMCO",
     "PEMCO quantity surveying services for measurement, costing, BOQ, and tender support.",
-    "assets/images/service-qs.jpg",
+    "assets/images/service-qs.jpeg",
     "Quantity Surveyor Services",
     "Commercial control for construction packages",
     "Our QS section supports owners and project teams with measurement, cost planning, and tender documentation.",
@@ -1144,22 +1163,22 @@ PAGES["contact.html"] = page(
           </div>
         </div>
       </div>
-      <form class="contact-form reveal" id="contact-form" action="https://formsubmit.co/pemco.myanmar@gmail.com" method="POST">
+      <form class="contact-form reveal" id="contact-form" novalidate>
         <input type="hidden" name="_subject" value="PEMCO website enquiry">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true">
         <label>Name
-          <input name="name" type="text" required placeholder="Your name">
+          <input name="name" id="contact-name" type="text" required placeholder="Your name" autocomplete="name">
         </label>
         <label>Company
-          <input name="company" type="text" placeholder="Company or organization">
+          <input name="company" id="contact-company" type="text" placeholder="Company or organization" autocomplete="organization">
         </label>
         <label>Email
-          <input name="email" type="email" required placeholder="name@company.com">
+          <input name="email" id="contact-email" type="email" required placeholder="name@company.com" autocomplete="email">
         </label>
         <label>Service interest
-          <select name="service">
+          <select name="service" id="contact-service">
             <option>Civil Engineering</option>
             <option>Electrical Engineering</option>
             <option>Mechanical Engineering</option>
@@ -1171,11 +1190,11 @@ PAGES["contact.html"] = page(
           </select>
         </label>
         <label>Project details
-          <textarea name="message" required placeholder="Share location, scope, timeline, and any drawing requirements."></textarea>
+          <textarea name="message" id="contact-message" required placeholder="Share location, scope, timeline, and any drawing requirements."></textarea>
         </label>
         <button class="btn btn-primary" type="submit" id="contact-submit">Send message</button>
-        <p class="form-note" id="contact-form-note">Messages are sent directly to <strong>pemco.myanmar@gmail.com</strong>. You can also email <a href="mailto:pemco.myanmar@gmail.com">pemco.myanmar@gmail.com</a>.</p>
-        <p class="form-status" id="contact-form-status" hidden></p>
+        <p class="form-note" id="contact-form-note">Sends to <strong>pemco.myanmar@gmail.com</strong>. If sending fails, your email app will open with the message ready to send.</p>
+        <p class="form-status" id="contact-form-status" hidden role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>

@@ -62,7 +62,7 @@ window.PEMCO_SEARCH = [
   {
     title: "Projects Portfolio",
     url: "projects.html",
-    keywords: "projects portfolio thilawa power plant komatsu yadana marina bay muse airport",
+    keywords: "projects portfolio thilawa power plant komatsu yadana marina bay muse airport tgmm yangon office",
     excerpt: "Selected PEMCO projects across power, industrial, commercial, and infrastructure."
   },
   {
@@ -130,6 +130,12 @@ window.PEMCO_SEARCH = [
     url: "projects.html",
     keywords: "yadana platform offshore oil gas energy platform works",
     excerpt: "Offshore oil & gas platform works for Yadana Platform."
+  },
+  {
+    title: "TGMM Yangon Office",
+    url: "projects.html",
+    keywords: "tgmm yangon office turnkey fit-out architectural drawings civil electrical mechanical hvac commercial",
+    excerpt: "Turnkey Yangon office build — civil, electrical, mechanical, and HVAC delivered from architectural and interior drawings."
   },
   {
     title: "Clients & Partners",
