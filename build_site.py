@@ -150,7 +150,7 @@ FOOTER = """
 </div>
 
 <script src="assets/js/search-data.js"></script>
-<script src="assets/js/main.js?v=20260825"></script>
+<script src="assets/js/main.js?v=20260829"></script>
 </body>
 </html>
 """
@@ -690,11 +690,15 @@ PAGES["about.html"] = page(
 """,
 )
 
-def gallery_html(folder, count=5, captions=None, layout="gallery-stack"):
+def gallery_html(folder, count=5, captions=None, layout="gallery-stack", title="Project photos", lead="Selected delivery photos from PEMCO project work.", footer=""):
     from pathlib import Path
     if captions is not None:
         count = min(count, len(captions))
-    files = sorted(Path(f"assets/images/{folder}").glob("*.jpg"))[:count]
+    folder_path = Path(f"assets/images/{folder}")
+    files = sorted(
+        [p for p in folder_path.iterdir() if p.suffix.lower() in {".jpg", ".jpeg", ".png"} and not p.name.startswith(".")],
+        key=lambda p: p.stem,
+    )[:count]
     if not files:
         return ""
     figs = []
@@ -706,22 +710,24 @@ def gallery_html(folder, count=5, captions=None, layout="gallery-stack"):
     grid_class = "gallery-grid"
     if layout:
         grid_class += f" {layout}"
+    footer_html = f'<div class="gallery-actions reveal">{footer}</div>' if footer else ""
     return f"""
   <section class="section section-tone">
     <div class="container">
       <div class="photo-gallery">
-        <h2>Project photos</h2>
-        <p class="gallery-lead">Selected delivery photos from PEMCO project work.</p>
+        <h2>{title}</h2>
+        <p class="gallery-lead">{lead}</p>
         <div class="{grid_class}">
           {''.join(figs)}
         </div>
+        {footer_html}
       </div>
     </div>
   </section>
 """
 
 
-def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_title, side_points, gallery_folder, gallery_captions=None, extra="", gallery_layout="gallery-stack", include_gallery=True):
+def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_title, side_points, gallery_folder, gallery_captions=None, extra="", gallery_layout="gallery-stack", include_gallery=True, gallery_title="Project photos", gallery_lead="Selected delivery photos from PEMCO project work.", gallery_footer=""):
     lis = "\n".join(
         f'<li id="{anchor}"><b>{code}</b><span><strong>{name}</strong><br>{blurb}</span></li>'
         for code, anchor, name, blurb in items
@@ -735,7 +741,19 @@ def service_page(title, desc, hero_img, eyebrow, heading, intro, items, side_tit
         if not hero_img
         else f'<section class="page-hero" style="--page-bg:url(\'{hero_bg}\')">'
     )
-    gallery = gallery_html(gallery_folder, count=5, captions=captions, layout=gallery_layout) if include_gallery else ""
+    gallery = (
+        gallery_html(
+            gallery_folder,
+            count=5,
+            captions=captions,
+            layout=gallery_layout,
+            title=gallery_title,
+            lead=gallery_lead,
+            footer=gallery_footer,
+        )
+        if include_gallery
+        else ""
+    )
     return page(
         title,
         desc,
@@ -862,17 +880,17 @@ PAGES["civil.html"] = service_page(
 
 PAGES["design-drawing.html"] = service_page(
     "Design & Drawing Services | PEMCO",
-    "PEMCO design and drawing outsourcing for international companies — electrical, mechanical, and civil documentation. Contact for quotes.",
+    "PEMCO design and drawing outsourcing for international companies — space planning, floor plans, detailed design, component, and interior fixture drawings. Contact for quotes.",
     "assets/images/service-design.jpg",
     "Design & Drawing Services",
     "Outsourced drawings for international project teams",
-    "PEMCO provides design and drawing support across electrical, mechanical, and civil scopes. International companies can contact us by email for quotations.",
+    "PEMCO prepares design and drawing packages from space planning through construction detailing. International companies can contact us by email for quotations.",
     [
-        ("01", "me", "Electrical / Mechanical / Civil Drawings", "Coordinated design packages aligned to the discipline you are hiring."),
-        ("02", "tender", "Tender & Construction Documentation", "Drawing sets prepared for tender issue and construction coordination."),
-        ("03", "structural", "Structural Design & Calculations", "Structural documentation and calculation support."),
-        ("04", "interior", "Interior Design Drawings", "Interior layouts, elevations, and detailing packages."),
-        ("05", "example", "Example Capability", "Sample tender drawing set available for reference on this page."),
+        ("01", "space-planning", "Space Planning & Layout", "Phased office and facility layouts with zoning, circulation, and area summaries."),
+        ("02", "floor-plans", "Detailed Floor Plans", "Construction floor plans with partition, door, furniture, and finish legends."),
+        ("03", "detailed-design", "Detailed Design Drawings", "Coordinated design drawings prepared for tender issue and construction."),
+        ("04", "component-details", "Custom Component Details", "Custom doors, hardware, and specialty component plans, elevations, and notes."),
+        ("05", "interior-fixtures", "Interior & Fixture Details", "Joinery, millwork, fixture, and pantry details with plans and elevations."),
     ],
     "Request a quote",
     [
@@ -883,25 +901,16 @@ PAGES["design-drawing.html"] = service_page(
     ],
     "design-drawing",
     [
-        "Tender drawing cover set",
-        "Layout plan documentation",
-        "General arrangement drawings",
-        "Elevation packages",
-        "Partition & detail drawings",
-        "Joinery and finish documentation",
+        "Space Planning & Layout",
+        "Detailed Floor Plans",
+        "Detailed Design Drawings",
+        "Custom Component Details",
+        "Interior & Fixture Details",
     ],
-    extra="""
-    <div style="margin-top:2rem" id="example">
-      <h2>Example tender drawing set</h2>
-      <p>Reference samples from a tender drawing package, illustrating layout, elevation, and detailing deliverables.</p>
-      <div class="drawing-grid">
-        <figure><img src="assets/images/drawing-01.jpg" alt="Tender drawing sample 1"><figcaption>Cover / content reference</figcaption></figure>
-        <figure><img src="assets/images/drawing-02.jpg" alt="Tender drawing sample 2"><figcaption>Layout documentation</figcaption></figure>
-        <figure><img src="assets/images/drawing-03.jpg" alt="Tender drawing sample 3"><figcaption>Detail package sample</figcaption></figure>
-      </div>
-      <p style="margin-top:1rem"><a class="btn btn-outline" href="assets/drawings/tender-drawing-set-example.pdf" target="_blank" rel="noopener">Open sample PDF</a></p>
-    </div>
-    """,
+    gallery_layout="gallery-3-2",
+    gallery_title="Drawing examples",
+    gallery_lead="Selected drawing samples from PEMCO design packages.",
+    gallery_footer='<a class="btn btn-primary" href="assets/drawings/tender-drawing-set-example.pdf" target="_blank" rel="noopener">View a sample</a>',
 )
 
 PAGES["quantity-surveyor.html"] = service_page(
@@ -1135,7 +1144,11 @@ PAGES["contact.html"] = page(
           </div>
         </div>
       </div>
-      <form class="contact-form reveal" action="mailto:pemco@myanmar.com.mm" method="post" enctype="text/plain">
+      <form class="contact-form reveal" id="contact-form" action="https://formsubmit.co/pemco.myanmar@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="PEMCO website enquiry">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true">
         <label>Name
           <input name="name" type="text" required placeholder="Your name">
         </label>
@@ -1160,8 +1173,9 @@ PAGES["contact.html"] = page(
         <label>Project details
           <textarea name="message" required placeholder="Share location, scope, timeline, and any drawing requirements."></textarea>
         </label>
-        <button class="btn btn-primary" type="submit">Send via email</button>
-        <p class="form-note">This form opens your email client to message PEMCO. You can also write directly to pemco@myanmar.com.mm.</p>
+        <button class="btn btn-primary" type="submit" id="contact-submit">Send message</button>
+        <p class="form-note" id="contact-form-note">Messages are sent directly to <strong>pemco.myanmar@gmail.com</strong>. You can also email <a href="mailto:pemco.myanmar@gmail.com">pemco.myanmar@gmail.com</a>.</p>
+        <p class="form-status" id="contact-form-status" hidden></p>
       </form>
     </div>
   </section>

@@ -38,8 +38,8 @@ window.PEMCO_SEARCH = [
   {
     title: "Design & Drawing Services",
     url: "design-drawing.html",
-    keywords: "design drawing outsourcing tender drawings structural calculations interior design international quotes",
-    excerpt: "Design & drawing outsourcing for international companies — electrical, mechanical, civil, and tender sets."
+    keywords: "design drawing outsourcing space planning floor plans detailed design custom component interior fixture joinery international quotes",
+    excerpt: "Design & drawing outsourcing — space planning, floor plans, detailed design, component, and interior fixture drawings."
   },
   {
     title: "Quantity Surveyor Services",
@@ -168,9 +168,9 @@ window.PEMCO_SEARCH = [
     excerpt: "Turnkey and civil contracting for factories, offices, and buildings."
   },
   {
-    title: "Tender Drawing Example",
-    url: "design-drawing.html#example",
-    keywords: "tender drawing set example outsourcing sample",
-    excerpt: "Sample tender drawing set showing PEMCO design & drawing delivery capability."
+    title: "Drawing Examples",
+    url: "design-drawing.html#space-planning",
+    keywords: "space planning floor plans detailed design custom component interior fixture drawing examples",
+    excerpt: "Sample drawing packages: space planning, floor plans, detailed design, component, and interior fixture details."
   }
 ];
